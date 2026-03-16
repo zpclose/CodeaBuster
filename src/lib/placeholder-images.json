@@ -1,0 +1,394 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-image",
+      "description": "Dynamic visual of coding and collaboration",
+      "imageUrl": "https://images.unsplash.com/photo-1550439062-609e1531270e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb2Z0d2FyZSUyMGRldmVsb3BlcnxlbnwwfHx8fDE3NjM3NjM4NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "software developer"
+    },
+    {
+      "id": "about-us-image",
+      "description": "Team collaborating on a project",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FWhatsApp%20Image%202025-12-03%20at%2001.07.46.jpeg?alt=media&token=fdc686f9-520f-44e1-8c37-be8677389112",
+      "imageHint": "collaboration meeting"
+    },
+    {
+      "id": "about-page-hero",
+      "description": "Telkom University campus building for about page hero",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2F5-Fasilitas-Unggulan-Telkom-University-PTS-Nomor-1-di-Indonesia.jpg?alt=media&token=2e52ac3c-7754-4d76-bc09-c70992f49eb6",
+      "imageHint": "university campus"
+    },
+    {
+      "id": "mercu-buana-building",
+      "description": "Abstract digital network visualization",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/tel-nect.appspot.com/o/abstract_red_network.mp4?alt=media&token=e66f27c3-3e11-421c-a111-923f798e29e9",
+      "imageHint": "digital network"
+    },
+    {
+      "id": "members-hero",
+      "description": "Abstract network of interconnected nodes",
+      "imageUrl": "https://images.unsplash.com/photo-1535378620166-273708d44e4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhYnN0cmFjdCUyMG5ldHdvcmt8ZW58MHx8fHwxNzY1MzE1MjE4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract network"
+    },
+    {
+      "id": "telkom-legacy",
+      "description": "Telkom University main building",
+      "imageUrl": "https://asset-2.tribunnews.com/tribunnews/foto/bank/images/gedung-telkom-university.jpg",
+      "imageHint": "university building"
+    },
+    {
+      "id": "mercu-buana-dynamism",
+      "description": "Mercu Buana Campus View",
+      "imageUrl": "https://osccdn.medcom.id/images/content/2021/09/19/f8b314fb10872887f1d72537abb339f3.jpg",
+      "imageHint": "university campus"
+    },
+    {
+      "id": "member-tu",
+      "description": "Professional photo of a male student",
+      "imageUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYWxlJTIwcHJvZmVzc2lvbmFsJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzY1MzE1NTQ1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "male portrait"
+    },
+    {
+      "id": "member-umb",
+      "description": "Professional photo of a female student",
+      "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmZW1hbGUlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjUzMTU1NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "female portrait"
+    },
+    {
+      "id": "events-hero",
+      "description": "Abstract visualization of a calendar or schedule with code elements",
+      "imageUrl": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYWxlbmRhciUyMGV2ZW50fGVufDB8fHx8fDE3NjUzODk0MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "calendar event"
+    },
+    {
+      "id": "masterclass-speaker",
+      "description": "Professional portrait of a male academic speaker",
+      "imageUrl": "https://b856188.smushcdn.com/856188/wp-content/uploads/2025/07/ProfSUO.png?lossy=2&strip=0&avif=1",
+      "imageHint": "male speaker"
+    },
+    {
+      "id": "telkom-university-logo-potrait",
+      "description": "Telkom University Logo",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FA120LOGO20%281%29.webp?alt=media&token=57b91082-ab56-4261-9da7-8dc838f1c062",
+      "imageHint": "university logo"
+    },
+    {
+      "id": "mercu-buana-logo-square",
+      "description": "Universitas Mercu Buana Logo",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FA120LOGO%2520%281%29.webp?alt=media&token=faf6ef8f-0e5d-4d5e-b7a3-06d241f1adf2",
+      "imageHint": "university logo"
+    },
+    {
+      "id": "projects-hero",
+      "description": "Abstract visualization of data flow or code",
+      "imageUrl": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGNvZGUlMjBmbG93fGVufDB8fHx8fDE3NjU0NzE4MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract code"
+    },
+    {
+      "id": "project-ai-fintech",
+      "description": "Futuristic AI and finance concept",
+      "imageUrl": "https://images.unsplash.com/photo-1674049402947-1965a7a78a63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmZW50ZWNoJTIwYWl8ZW58MHx8fHwxNzY1NDcxODYzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fintech ai"
+    },
+    {
+      "id": "project-blockchain-voting",
+      "description": "Abstract blockchain network visualization",
+      "imageUrl": "https://images.unsplash.com/photo-1639322537228-f710d846310a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxibG9ja2NoYWluJTIwbmV0d29ya3xlbnwwfHx8fDE3NjU0NzE4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blockchain network"
+    },
+    {
+      "id": "project-cyber-security",
+      "description": "Cyber security world threat map",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/adi-goldstein-EUsVwEOsblE-unsplash.jpg?alt=media&token=8a02be00-c712-4f13-9f4a-faea04467ae9",
+      "imageHint": "cyber security abstract"
+    },
+    {
+      "id": "case-study-hero",
+      "description": "Smart city with data overlays",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/smart-city-iot-and-ai.png?alt=media&token=e0fd09da-1e30-42e5-890b-3a875e53dc7d",
+      "imageHint": "smart city"
+    },
+    {
+      "id": "management-lacienta",
+      "description": "Portrait of Lacienta",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/images%2Fteam-members%2Fketua-umum%2Fwhatsapp-image-2025-03-29-at-22-53-45-80f7a7bb-1770936555242.jpg?alt=media&token=f8c0dc25-4b23-43a6-a9ba-f0e0c452b97c",
+      "imageHint": "female portrait"
+    },
+    {
+      "id": "management-firdaus",
+      "description": "Portrait of Muhammad Firdaus",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/WhatsApp%20Image%202025-11-01%20at%2023.12.29_2e3f00d2.jpg?alt=media&token=ebcda9f3-85cd-425d-bd3b-d6bce899a3bd",
+      "imageHint": "male portrait"
+    },
+    {
+      "id": "management-aufa-azzaky",
+      "description": "Portrait of Aufa Azzaky",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/WhatsApp%20Image%202025-11-01%20at%2023.58.44_58d8e176.jpg?alt=media&token=c53253c1-7aff-4776-b3e6-cc435a0b827c",
+      "imageHint": "male portrait"
+    },
+    {
+      "id": "management-daffa",
+      "description": "Portrait of Daffa",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FWhatsApp%20Image%202025-11-28%20at%2001.41.10.jpeg?alt=media&token=580cb840-da47-4d42-8775-64fd3c9b3696",
+      "imageHint": "male portrait"
+    },
+    {
+      "id": "management-yovan",
+      "description": "Portrait of Yovan Atilla",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FWhatsApp%20Image%202025-12-05%20at%2000.13.22_558441d5.jpg?alt=media&token=e5d2d2c1-5ce2-4bad-b4e8-574020bc9b29",
+      "imageHint": "male portrait"
+    },
+    {
+      "id": "management-rayyan",
+      "description": "Portrait of Rayyan Fatih",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FWhatsApp%20Image%202025-12-05%20at%2000.30.53_94bf9f4a.jpg?alt=media&token=1390997a-8dc8-41c2-8820-40ff00c57cb2",
+      "imageHint": "male portrait"
+    },
+    {
+      "id": "achievement-elearning-winner",
+      "description": "High-quality screenshot or mockup of the winning e-learning UI design.",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/32.jpg?alt=media&token=78d60b95-d5c6-4194-a0e1-b9471dec82b9",
+      "imageHint": "elearning ui"
+    },
+    {
+      "id": "sifonix-wireframe",
+      "description": "Image of wireframes or user flow diagrams for the e-learning project",
+      "imageUrl": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzk5fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "wireframe sketch"
+    },
+    {
+      "id": "sifonix-mockup-1",
+      "description": "High-resolution mockup of the e-learning dashboard",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/ACHIVEMENT%20UX%2FN1.png?alt=media&token=2dfdd405-7c1e-4a63-bd8e-30fc3aa5c3f9",
+      "imageHint": "dashboard mockup"
+    },
+    {
+      "id": "sifonix-mockup-2",
+      "description": "High-resolution mockup of a course page",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/ACHIVEMENT%20UX%2FN2.png?alt=media&token=8bd04fcb-bc7a-4fa8-8c6e-f81c5c2bdd06",
+      "imageHint": "course page"
+    },
+    {
+      "id": "sifonix-mockup-3",
+      "description": "High-resolution mockup of the gamification/leaderboard page",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/ACHIVEMENT%20UX%2FN3.png?alt=media&token=cff9a885-3845-41c7-8c81-1b0c3de2d462",
+      "imageHint": "gamification ui"
+    },
+    {
+      "id": "sifonix-mockup-4",
+      "description": "High-resolution mockup of a profile page",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/ACHIVEMENT%20UX%2FN4.png?alt=media&token=79491e01-8c71-4155-b9f2-671e82f4ddb1",
+      "imageHint": "profile page"
+    },
+    {
+      "id": "sifonix-mockup-5",
+      "description": "High-resolution mockup of a fifth screen",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/ACHIVEMENT%20UX%2FN5.png?alt=media&token=36d294e1-5c85-4249-a141-22079197301e",
+      "imageHint": "mobile screen"
+    },
+    {
+      "id": "sifonix-mockup-6",
+      "description": "High-resolution mockup of a sixth screen",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/ACHIVEMENT%20UX%2FN6.png?alt=media&token=120e37c8-04bc-4eee-a896-e487c5b082ac",
+      "imageHint": "mobile screen"
+    },
+    {
+      "id": "sifonix-mockup-7",
+      "description": "High-resolution mockup of a seventh screen",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/ACHIVEMENT%20UX%2FN7.png?alt=media&token=20e10997-40a0-4068-adce-c2ac41ab3db3",
+      "imageHint": "mobile screen"
+    },
+    {
+      "id": "sifonix-citra",
+      "description": "Professional portrait of Citra Dewi Lestari",
+      "imageUrl": "https://images.unsplash.com/photo-1581093196277-9f608bb3d4b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmZW1hbGUlMjBwcm9mZXNzaW9uYWx8ZW58MHx8fHwxNzYxMDY0MTQ0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "female professional"
+    },
+    {
+      "id": "sifonix-baskara",
+      "description": "Professional portrait of Baskara Wijaya",
+      "imageUrl": "https://images.unsplash.com/photo-1621788455812-83eddfd06621?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtYWxlJTIwcHJvZmVzc2lvbmFsfGVufDB8fHx8fDE3NjA5ODIyNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "male professional"
+    },
+    {
+      "id": "sifonix-ahmad",
+      "description": "Professional portrait of Ahmad Riyadi",
+      "imageUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYWxlJTIwcHJvZmVzc2lvbmFsJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzY1MTE1NTQ1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "male portrait"
+    },
+    {
+      "id": "auth-visual",
+      "description": "Abstract data network visualization",
+      "imageUrl": "https://images.unsplash.com/photo-1605379399642-870262d3d051?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkYXRhJTIwbmV0d29ya3xlbnwwfHx8fDE3NjU2NTk5MzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "data network"
+    },
+    {
+      "id": "management-ketua-umum",
+      "description": "Portrait of Dr. Alif Firmansyah",
+      "imageUrl": "https://images.unsplash.com/photo-1566753323558-f4e0952af115?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzk5fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "male professional"
+    },
+    {
+      "id": "community-event-1",
+      "description": "Global network map with glowing nodes",
+      "imageUrl": "https://images.unsplash.com/photo-1534237710431-e2fc6h8436d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnbG9iYWwlMjBuZXR3b3JrJTIwbWFwfGVufDB8fHx8fDE3NjgwODk1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "global network"
+    },
+    {
+      "id": "community-event-2",
+      "description": "Photo from a mentorship session",
+      "imageUrl": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZW50b3JzaGlwJTIwc2Vzc2lvbnxlbnwwfHx8fDE3NjM3NjEyNDJ8MA&ixlib_rb-4.1.0&q=80&w=1080",
+      "imageHint": "mentorship session"
+    },
+    {
+      "id": "architecture-diagram",
+      "description": "A complex architecture diagram on a whiteboard",
+      "imageUrl": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "architecture diagram"
+    },
+    {
+      "id": "impact-archive-logo",
+      "description": "Official Registry Emblem (Gryffindor-style logo) for Achievements page.",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/SIFONIX%2F79bac2bf78d288f3b0a1200c26bb7361.jpg?alt=media&token=e7ff5666-65cb-47d9-b98c-0bfdb28ea9bf",
+      "imageHint": "heraldic crest"
+    },
+    {
+      "id": "unpad-campus",
+      "description": "Universitas Padjadjaran campus",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2F150bbf35-image-1536x1152.png?alt=media&token=583e001d-b1da-47bf-951b-4c09dcaca0c8",
+      "imageHint": "university campus"
+    },
+    {
+      "id": "unpam-campus",
+      "description": "Universitas Pamulang campus",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FjsX2YEP30AtrHlWKCbFboVEQyh7DySZg0wurQbTI.jpg?alt=media&token=45a6b64a-5ae2-4242-92ab-a158d6b160c9",
+      "imageHint": "university campus"
+    },
+    {
+      "id": "bsi-campus",
+      "description": "Universitas BSI campus",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2Flagj7ljy6w.jpg?alt=media&token=f9639bd2-3aa0-46d6-9bd1-a453d2acc04f",
+      "imageHint": "university building"
+    },
+    {
+      "id": "binus-campus",
+      "description": "Universitas Binus campus",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FCampusBekasi.jpg?alt=media&token=9c11b47c-d2f5-435f-ab11-7bb82c8f5973",
+      "imageHint": "university building"
+    },
+    {
+      "id": "its-campus",
+      "description": "ITS campus",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FITS-dinobatkan-sebagai-salah-satu-kampus-terbaik-di-Indonesia-versi-THE-WUR-2022.jpeg?alt=media&token=9b9a5c90-e63c-4f65-9cd9-609bac2ab214",
+      "imageHint": "university campus"
+    },
+    {
+      "id": "collage-chairperson-main",
+      "description": "Main chairperson portrait for homepage collage",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FWhatsApp%20Image%202025-03-30%20at%2000.15.21_6b2a6549.jpg?alt=media&token=0c56c4c7-75fb-4a56-bdac-8cc439965a90",
+      "imageHint": "tech presentation"
+    },
+    {
+      "id": "collage-chairperson-secondary",
+      "description": "Secondary image for homepage collage showing a tech presentation",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FWhatsApp%20Image%202025-12-03%20at%2002.12.05_593f6f65.jpg?alt=media&token=43a4ce6c-75cc-4ce8-aaa8-3ec05d2c809b",
+      "imageHint": "female professional"
+    },
+    {
+      "id": "event-highlight",
+      "description": "Audience at a conference or event",
+      "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhdWRpZW5jZSUyMGNvbmZlcmVuY2V8ZW58MHx8fHwxNzE3NjI0NDg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "conference audience"
+    },
+    {
+      "id": "homepage-carousel-collaboration",
+      "description": "Team collaborating on a project for homepage carousel",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/WhatsApp%20Image%202025-12-02%20at%2015.29.20_b838150c.jpg?alt=media&token=8b6024a2-b848-4773-9811-7cc1936db6fc",
+      "imageHint": "collaboration meeting"
+    },
+    {
+      "id": "homepage-carousel-leadership",
+      "description": "Leadership portrait for homepage carousel",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FWhatsApp%20Image%202025-03-30%20at%2000.15.21_6b2a6549.jpg?alt=media&token=0c56c4c7-75fb-4a56-bdac-8cc439965a90",
+      "imageHint": "tech presentation"
+    },
+    {
+      "id": "homepage-carousel-mentorship",
+      "description": "Photo from a mentorship session for homepage carousel",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FWhatsApp%20Image%202025-12-03%20at%2023.32.39.jpeg?alt=media&token=8f0118d9-3ece-46c7-8c7f-ef331af5c5c8",
+      "imageHint": "mentorship session"
+    },
+    {
+      "id": "hero-background-main",
+      "description": "New background for the hero section",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FWhatsApp%20Image%202025-12-05%20at%2000.30.53_c181dc81.jpg?alt=media&token=da5949dc-192e-4a04-962e-af80a7643c0b",
+      "imageHint": "tech background"
+    },
+    {
+      "id": "about-us-decoration",
+      "description": "Decorative abstract image for the about us page",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/thumb.jpg?alt=media&token=027be302-867c-47ad-b95d-4af96cb1e3d1",
+      "imageHint": "abstract decoration"
+    },
+    {
+      "id": "ai-ml-background",
+      "description": "AI/ML specialist program background image",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/Vicor-article-featured-image-disaggregating-power-data-centers-small.avif?alt=media&token=e880ac5d-8aac-4a16-8e02-034ac6abbff8",
+      "imageHint": "data center"
+    },
+    {
+      "id": "icsit-certificate",
+      "description": "Certificate for ICSIT event",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/WhatsApp%20Image%202025-12-26%20at%2015.41.10%20(1).jpeg?alt=media&token=e08304cf-1130-40e1-9d28-f555e7b4bbc0",
+      "imageHint": "award certificate"
+    },
+    {
+      "id": "project-iot-dashboard",
+      "description": "Mockup of an IoT dashboard on a screen",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/8.jpeg?alt=media&token=a8ec53e5-0ae4-4913-bf70-47d365ab0f09",
+      "imageHint": "iot dashboard"
+    },
+    {
+      "id": "achievement-esports-winner",
+      "description": "Team celebrating an e-sports victory",
+      "imageUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlc3BvcnRzJTIwdG91cm5hbWVudHxlbnwwfHx8fDE3NjkyNjU3NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "esports tournament"
+    },
+    {
+      "id": "icsit-prototype-1",
+      "description": "ICSIT Prototype Screen 1",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FPage%201%20-%20ICSIT.png?alt=media&token=aa8b083c-5fb5-4d8d-9a02-12d204d8e578",
+      "imageHint": "mobile screen"
+    },
+    {
+      "id": "icsit-prototype-2",
+      "description": "ICSIT Prototype Screen 2",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FPage%204%20-%20ICSIT.png?alt=media&token=daadcf38-01cb-4d16-add3-1d0a544f1c9f",
+      "imageHint": "mobile screen"
+    },
+    {
+      "id": "icsit-prototype-3",
+      "description": "ICSIT Prototype Screen 3",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FPage%203%20-%20ICSIT.png?alt=media&token=bb35580d-bcde-40a5-b9f5-42dbaa76301c",
+      "imageHint": "mobile screen"
+    },
+    {
+      "id": "sifonix-certificate",
+      "description": "Certificate for Sifonix event",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/SIFONIX%2FWhatsApp%20Image%202026-02-21%20at%2001.25.12.jpeg?alt=media&token=3102f80a-e0ce-4fa2-9514-b5fe4f90a2fc",
+      "imageHint": "award certificate"
+    },
+    {
+      "id": "sifonix-group-photo",
+      "description": "Group Photo for Sifonix",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/SIFONIX%2FWhatsApp%20Image%202026-02-14%20at%2017.30.05.jpeg?alt=media&token=faf6e82e-f287-4da6-892f-0f4e8730dddf",
+      "imageHint": "group photo"
+    },
+    {
+      "id": "icsit-hero",
+      "description": "Hero Image for ICSIT",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/8.jpeg?alt=media&token=a8ec53e5-0ae4-4913-bf70-47d365ab0f09",
+      "imageHint": "iot dashboard"
+    }
+  ]
+}

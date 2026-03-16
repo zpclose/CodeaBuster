@@ -1,0 +1,93 @@
+
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a user's profile information within the CodeConnect community.",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "fullName": {
+          "type": "string",
+          "description": "The user's full name."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address.",
+          "format": "email"
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "URL of the user's profile picture."
+        },
+        "bio": {
+          "type": "string",
+          "description": "User's professional biography."
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "github": { "type": "string" },
+            "linkedin": { "type": "string" }
+          }
+        },
+        "institution": {
+          "type": "string"
+        },
+        "major": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "admin"]
+        }
+      },
+      "required": ["uid", "fullName", "email"]
+    },
+    "ProjectProposal": {
+      "title": "ProjectProposal",
+      "type": "object",
+      "properties": {
+        "projectName": { "type": "string" },
+        "projectCategory": { "type": "string" },
+        "submittedBy": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores core user profile data. Access is public-read, owner-write."
+        }
+      },
+      {
+        "path": "/project-proposals/{proposalId}",
+        "definition": {
+          "entityName": "ProjectProposal",
+          "schema": {
+            "$ref": "#/backend/entities/ProjectProposal"
+          },
+          "description": "Stores community project suggestions."
+        }
+      }
+    ],
+    "reasoning": "Updated to reflect flat user structure and project proposals collection."
+  }
+}
