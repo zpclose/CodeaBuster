@@ -4,35 +4,27 @@ import './globals.css';
 import { DynamicFirebaseProvider } from '@/firebase/dynamic-provider';
 import { DynamicThemeProvider } from '@/components/DynamicThemeProvider';
 
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.codebustersconnect.com'),
 
   title: {
-    default: 'CodeBusters | Komunitas Teknologi Mahasiswa & Belajar Coding Gratis',
-    template: '%s | CodeBusters',
+    default: 'Codebusters | Komunitas Teknologi Mahasiswa',
+    template: '%s | Codebusters',
   },
 
   description:
-    'CodeBusters adalah komunitas teknologi mahasiswa untuk belajar coding gratis, kolaborasi project, dan networking talenta digital dari Telkom University & Universitas Mercu Buana.',
+    'Komunitas teknologi mahasiswa untuk belajar coding, membangun project, dan networking di bidang teknologi.',
 
   keywords: [
-    'codebusters',
     'komunitas teknologi mahasiswa',
     'komunitas programmer',
     'belajar coding gratis',
     'komunitas mahasiswa teknologi',
-    'komunitas coding indonesia',
-    'telkom university',
-    'universitas mercu buana'
+    'codebusters'
   ],
 
-  authors: [{ name: 'CodeBusters Community' }],
-  creator: 'CodeBusters',
-
-  alternates: {
-    canonical: '/',
-  },
+  authors: [{ name: 'Codebusters Community' }],
+  creator: 'Codebusters',
 
   robots: {
     index: true,
@@ -44,26 +36,26 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: 'CodeBusters | Komunitas Teknologi Mahasiswa & Belajar Coding Gratis',
+    title: 'Codebusters | Komunitas Teknologi Mahasiswa',
     description:
-      'Komunitas teknologi mahasiswa untuk belajar coding gratis, membangun project nyata, dan networking talenta digital.',
+      'Komunitas teknologi mahasiswa untuk belajar coding dan teknologi.',
     url: 'https://www.codebustersconnect.com',
-    siteName: 'CodeBusters',
+    siteName: 'Codebusters',
     type: 'website',
     images: [
       {
         url: '/api/og',
         width: 1200,
         height: 630,
-        alt: 'CodeBusters - Komunitas Teknologi Mahasiswa',
+        alt: 'Codebusters - Komunitas Teknologi Mahasiswa',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'CodeBusters | Komunitas Teknologi Mahasiswa & Belajar Coding Gratis',
-    description: 'Komunitas teknologi mahasiswa untuk belajar coding gratis dan kolaborasi project nyata.',
+    title: 'Codebusters | Komunitas Teknologi Mahasiswa',
+    description: 'Komunitas teknologi mahasiswa untuk belajar coding dan teknologi.',
     site: '@codebusters',
     creator: '@codebusters',
     images: ['/api/og'],
@@ -96,4 +88,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+  }
