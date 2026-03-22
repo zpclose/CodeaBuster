@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://codebusters.dev';
+    const baseUrl = 'https://www.codebustersconnect.com';
     const lastModified = new Date();
 
     return [
