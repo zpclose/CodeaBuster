@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';

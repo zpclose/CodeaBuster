@@ -3,7 +3,6 @@
     "installCommand": "npm install",
     "framework": "nextjs",
     "regions": ["sin1"],
-    
     "headers": [
         {
             "source": "/(.*)",
