@@ -6,7 +6,7 @@ import { DynamicThemeProvider } from '@/components/DynamicThemeProvider';
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://codebusters.dev'),
+  metadataBase: new URL('https://www.codebustersconnect.com'),
 
   title: {
     default: 'Codebusters | Komunitas Teknologi Mahasiswa',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: 'Codebusters | Komunitas Teknologi Mahasiswa',
     description:
       'Komunitas teknologi mahasiswa untuk belajar coding dan teknologi.',
-    url: 'https://codebusters.dev',
+    url: 'https://www.codebustersconnect.com',
     siteName: 'Codebusters',
     type: 'website',
     images: [

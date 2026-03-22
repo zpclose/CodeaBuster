@@ -50,7 +50,7 @@ export default function RegisterPage() {
               Aplikasi ini adalah langkah awal Anda menuju jaringan talenta digital terkemuka dari Telkom University dan Universitas Mercu Buana. Kualitas dan Komitmen adalah kunci.
             </p>
           </div>
-
+{/* 
           <div className="bg-card p-8 rounded-lg border shadow-lg mb-12">
             <h2 className="font-headline text-2xl font-bold">The Mandate for Entry</h2>
             <ul className="mt-4 space-y-3 text-muted-foreground list-disc list-inside">
@@ -64,7 +64,7 @@ export default function RegisterPage() {
                 <span className="font-semibold text-foreground">Timeline:</span> Hasil seleksi akan diumumkan melalui email dalam waktu 2-3 minggu setelah periode pendaftaran ditutup.
               </li>
             </ul>
-          </div>
+          </div> */}
           
           <RegisterForm />
 
