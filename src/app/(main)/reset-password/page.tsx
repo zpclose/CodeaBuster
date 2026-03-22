@@ -13,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2, CheckCircle, XCircle, Lock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CodeConnectLogo } from '@/components/icons';
 
@@ -95,7 +95,7 @@ function ResetPasswordContent() {
 
   return (
     <div className="relative min-h-screen w-full bg-background">
-      {authImage && <Image src={authImage.imageUrl} alt="Background" fill className="object-cover blur-xl saturate-150" />}
+      {authImage && <ImageWithSkeleton src={authImage.imageUrl} alt="Background" fill className="object-cover blur-xl saturate-150" />}
       <div className="absolute inset-0 bg-black/30" />
       <div className="relative flex min-h-screen items-center justify-center p-4">
         <Card className="w-full max-w-md shadow-2xl bg-card/95 backdrop-blur-sm">
@@ -103,7 +103,7 @@ function ResetPasswordContent() {
             {siteLogo !== undefined && (
               siteLogo ? (
                 <div className="relative h-12 w-12 mx-auto">
-                  <Image src={siteLogo} alt="Logo" fill className="object-contain" />
+                  <ImageWithSkeleton src={siteLogo} alt="Logo" fill className="object-contain" />
                 </div>
               ) : (
                 <CodeConnectLogo className="mx-auto h-12 w-12 text-primary" />

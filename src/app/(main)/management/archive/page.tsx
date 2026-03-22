@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -172,7 +172,7 @@ export default function ArchivePage() {
                                                     <TableCell>
                                                         {leader && (
                                                             <div className="flex items-center gap-2">
-                                                                {leaderImage && <Image src={leaderImage.imageUrl} alt={leader.name} width={24} height={24} className="rounded-full h-6 w-6 object-cover" />}
+                                                                {leaderImage && <ImageWithSkeleton src={leaderImage.imageUrl} alt={leader.name} width={24} height={24} className="rounded-full h-6 w-6 object-cover" />}
                                                                 <span className="text-xs font-medium">{leader.name}</span>
                                                             </div>
                                                         )}

@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { BrainCircuit, Code, ShieldCheck, Layers, CheckCircle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 
 const programTracks = [
     {
@@ -109,7 +109,7 @@ function ProgramCard({ track }: { track: typeof programTracks[0] }) {
         >
             {/* Background Image with Parallax */}
             <motion.div className="absolute inset-0 z-0" style={{ y: imageY }}>
-                {image && <Image src={image.imageUrl} alt={track.title} fill className="object-cover" />}
+                {image && <ImageWithSkeleton src={image.imageUrl} alt={track.title} fill className="object-cover" />}
                 <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
             </motion.div>
 

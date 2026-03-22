@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -136,7 +136,7 @@ export default function HokPortfolioPage() {
                             className="lg:col-span-7 relative"
                         >
                             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border-[6px] border-card group">
-                                <Image
+<ImageWithSkeleton 
                                     src={unifiedVisual}
                                     alt="HOK Victory Moment"
                                     fill
@@ -224,7 +224,7 @@ export default function HokPortfolioPage() {
                     >
                         <div className="relative inline-block">
                             <div className="relative h-16 w-16 mx-auto opacity-20 animate-pulse">
-                                <Image
+<ImageWithSkeleton 
                                     src="https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/Komponen%2Fthropy_cup_winner_medal_sport_icon_228609.png?alt=media&token=3f78eece-0a46-4d5a-8392-5a2d9c3c7b77"
                                     alt="Trophy"
                                     fill

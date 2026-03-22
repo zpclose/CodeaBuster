@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ExternalLink, ChevronLeft, CalendarDays, Star, Heart, Camera } from 'lucide-react';
@@ -31,13 +31,13 @@ export default function EventTemplate({ achievement }: Props) {
                     <div className="absolute inset-0 grid grid-cols-3 gap-1 opacity-60">
                         {[...gallery, ...gallery].slice(0, 6).map((url, i) => (
                             <div key={i} className={`relative overflow-hidden ${i === 0 ? 'row-span-2 col-span-2' : ''}`}>
-                                <Image src={url} alt="" fill className="object-cover" unoptimized />
+                                <ImageWithSkeleton src={url} alt="" fill className="object-cover" />
                             </div>
                         ))}
                     </div>
                 ) : pc.heroImageUrl ? (
                     <>
-                        <Image src={pc.heroImageUrl} alt={title} fill className="object-cover opacity-50" unoptimized />
+                        <ImageWithSkeleton src={pc.heroImageUrl} alt={title} fill className="object-cover opacity-50" />
                     </>
                 ) : null}
                 <div className="absolute inset-0 bg-gradient-to-t from-amber-950 via-amber-950/70 to-amber-950/40" />
@@ -129,7 +129,7 @@ export default function EventTemplate({ achievement }: Props) {
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.06 }}
                                 >
-                                    <Image src={url} alt={`Moment ${i + 1}`} fill className="object-cover" unoptimized />
+                                    <ImageWithSkeleton src={url} alt={`Moment ${i + 1}`} fill className="object-cover" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                                 </motion.div>
                             ))}
@@ -154,7 +154,7 @@ export default function EventTemplate({ achievement }: Props) {
                             >
                                 {member.avatarUrl ? (
                                     <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-amber-200 group-hover:border-amber-500 transition-colors shadow">
-                                        <Image src={member.avatarUrl} alt={member.name} fill className="object-cover" unoptimized />
+                                        <ImageWithSkeleton src={member.avatarUrl} alt={member.name} fill className="object-cover" />
                                     </div>
                                 ) : (
                                     <div className="h-16 w-16 rounded-full border-2 border-amber-200 bg-amber-50 dark:bg-amber-950/30 flex items-center justify-center font-black text-amber-600 text-xl">

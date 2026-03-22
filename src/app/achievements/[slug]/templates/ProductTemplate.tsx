@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ExternalLink, ChevronLeft, Layers, ArrowRight } from 'lucide-react';
@@ -77,7 +77,7 @@ export default function ProductTemplate({ achievement }: Props) {
                                     {/* Device frame */}
                                     <div className="relative border-[12px] border-foreground/10 bg-foreground/5 rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[9/19]">
                                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-foreground/10 rounded-b-2xl z-10" />
-                                        <Image src={pc.heroImageUrl} alt={title} fill className="object-cover" unoptimized />
+                                        <ImageWithSkeleton src={pc.heroImageUrl} alt={title} fill className="object-cover" />
                                     </div>
                                     {/* Glow effect */}
                                     <div className="absolute inset-0 -z-10 blur-3xl opacity-20 scale-75 bg-primary rounded-full" />
@@ -161,7 +161,7 @@ export default function ProductTemplate({ achievement }: Props) {
                                         viewport={{ once: true }}
                                         transition={{ delay: i * 0.07 }}
                                     >
-                                        <Image src={url} alt={`Screen ${i + 1}`} fill className="object-cover" unoptimized />
+                                        <ImageWithSkeleton src={url} alt={`Screen ${i + 1}`} fill className="object-cover" />
                                     </motion.div>
                                 ))}
                             </div>
@@ -187,7 +187,7 @@ export default function ProductTemplate({ achievement }: Props) {
                                 >
                                     {member.avatarUrl ? (
                                         <div className="relative h-10 w-10 rounded-full overflow-hidden flex-shrink-0">
-                                            <Image src={member.avatarUrl} alt={member.name} fill className="object-cover" unoptimized />
+                                            <ImageWithSkeleton src={member.avatarUrl} alt={member.name} fill className="object-cover" />
                                         </div>
                                     ) : (
                                         <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 font-black text-primary text-sm">

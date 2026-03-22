@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -328,7 +328,7 @@ export default function SifonixPortfolioPage() {
             <h3 className="text-2xl font-bold tracking-tight text-center text-foreground mb-12">Proses Desain (UX/UI) Kami</h3>
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div className="relative h-80 w-full">
-                {wireframeUrl && <Image src={wireframeUrl} alt="Proses Wireframing" fill className="rounded-lg object-cover shadow-lg" />}
+                {wireframeUrl && <ImageWithSkeleton src={wireframeUrl} alt="Proses Wireframing" fill className="rounded-lg object-cover shadow-lg" />}
               </div>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">

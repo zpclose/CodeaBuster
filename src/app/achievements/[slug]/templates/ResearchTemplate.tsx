@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ExternalLink, ChevronLeft, BookOpen, Users, Award, FlaskConical } from 'lucide-react';
@@ -58,7 +58,7 @@ export default function ResearchTemplate({ achievement }: Props) {
             {/* Hero image — full width */}
             {pc.heroImageUrl && (
                 <div className="relative w-full h-72 md:h-96 border-b overflow-hidden">
-                    <Image src={pc.heroImageUrl} alt={title} fill className="object-cover" unoptimized />
+                    <ImageWithSkeleton src={pc.heroImageUrl} alt={title} fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
                 </div>
             )}
@@ -131,7 +131,7 @@ export default function ResearchTemplate({ achievement }: Props) {
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.1 }}
                                 >
-                                    <Image src={url} alt={`Doc ${i + 1}`} fill className="object-cover" unoptimized />
+                                    <ImageWithSkeleton src={url} alt={`Doc ${i + 1}`} fill className="object-cover" />
                                 </motion.div>
                             ))}
                         </div>
@@ -156,7 +156,7 @@ export default function ResearchTemplate({ achievement }: Props) {
                                 >
                                     {member.avatarUrl ? (
                                         <div className="relative h-10 w-10 rounded-full overflow-hidden border flex-shrink-0">
-                                            <Image src={member.avatarUrl} alt={member.name} fill className="object-cover" unoptimized />
+                                            <ImageWithSkeleton src={member.avatarUrl} alt={member.name} fill className="object-cover" />
                                         </div>
                                     ) : (
                                         <div className="h-10 w-10 rounded-full border-2 border-foreground/20 flex items-center justify-center font-black text-sm flex-shrink-0">

@@ -1,7 +1,7 @@
 
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Cpu, Target, Layers } from 'lucide-react';
@@ -41,7 +41,7 @@ export default function CaseStudyPage() {
       {/* Hero Section */}
       <section className="relative h-[40vh] md:h-[50vh] w-full overflow-hidden">
         {heroImage && (
-             <Image
+             <ImageWithSkeleton
                 src={heroImage.imageUrl}
                 alt={heroImage.description}
                 fill
@@ -57,9 +57,9 @@ export default function CaseStudyPage() {
                 {caseStudyData.title}
             </h1>
             <div className="mt-4 flex items-center gap-4">
-                {telkomLogo && <Image src={telkomLogo.imageUrl} alt="Telkom University" width={32} height={32} className="h-8 object-contain" />}
+                {telkomLogo && <ImageWithSkeleton src={telkomLogo.imageUrl} alt="Telkom University" width={32} height={32} className="h-8 object-contain" />}
                 <span className="text-xl font-bold">+</span>
-                {mercuBuanaLogo && <Image src={mercuBuanaLogo.imageUrl} alt="Universitas Mercu Buana" width={32} height={32} className="h-8 object-contain" />}
+                {mercuBuanaLogo && <ImageWithSkeleton src={mercuBuanaLogo.imageUrl} alt="Universitas Mercu Buana" width={32} height={32} className="h-8 object-contain" />}
             </div>
         </div>
       </section>

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
@@ -16,7 +16,7 @@ export default function IcsitPortfolioLayout({
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             {mercuBuanaLogo && (
-              <Image
+              <ImageWithSkeleton
                 src={mercuBuanaLogo.imageUrl}
                 alt="Universitas Mercu Buana"
                 width={28}

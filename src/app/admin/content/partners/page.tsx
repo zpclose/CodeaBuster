@@ -17,6 +17,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import type { NetworkPartner, NetworkPartnerFormData, PartnerStatus } from '@/types/content';
 import ImageUploader from '@/app/admin/components/ImageUploader';
@@ -257,13 +258,14 @@ export default function PartnersAdminPage() {
                                 {partners.map((partner) => (
                                     <div key={partner.id} className="grid grid-cols-[80px_minmax(180px,2fr)_minmax(120px,1fr)_minmax(120px,1fr)_150px_100px_100px] gap-4 px-6 py-3 text-sm border-b border-border/40 items-center hover:bg-muted/30 transition-colors">
                                         <div className="w-[80px]">
-                                            <div className="relative h-12 w-16 rounded-lg overflow-hidden border border-border/50 shadow-sm bg-muted/30">
+                                            <div className="relative h-12 w-16 rounded-lg overflow-hidden border border-border/50 shadow-sm">
                                                 {partner.imageUrl ? (
-                                                    <Image
+                                                    <ImageWithSkeleton
                                                         src={partner.imageUrl}
                                                         alt={partner.name}
                                                         fill
                                                         className="object-cover"
+                                                        skeletonClassName="rounded-lg"
                                                     />
                                                 ) : (
                                                     <div className="w-full h-full flex items-center justify-center">

@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -164,12 +164,11 @@ export default function EsportsTemplate({ achievement }: Props) {
                         >
                             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-[6px] border-card group">
                                 {heroImageUrl && (
-                                    <Image
+                                    <ImageWithSkeleton
                                         src={heroImageUrl}
                                         alt={title}
                                         fill
                                         className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                                        unoptimized
                                     />
                                 )}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
@@ -216,7 +215,7 @@ export default function EsportsTemplate({ achievement }: Props) {
                                                 className="absolute bottom-8 right-8 z-30 flex items-center justify-center p-3 bg-white/60 backdrop-blur-md border border-white/50 rounded-xl shadow-lg transition-all duration-500 group-hover:bg-white/80"
                                             >
                                                 <div className="relative h-10 w-10 opacity-90">
-                                                    <Image src={mercuBuanaLogo.imageUrl} alt="UMB Seal" fill className="object-contain grayscale group-hover:grayscale-0 transition-all" />
+                                                    <ImageWithSkeleton src={mercuBuanaLogo.imageUrl} alt="UMB Seal" fill className="object-contain grayscale group-hover:grayscale-0 transition-all" />
                                                 </div>
                                                 <div className="ml-3 text-left">
                                                     <p className="text-[7px] font-black uppercase tracking-widest text-muted-foreground leading-tight">Institutional<br/>Security Seal</p>
@@ -228,12 +227,11 @@ export default function EsportsTemplate({ achievement }: Props) {
                                         <CardContent className="p-0 relative z-10 bg-muted/5">
                                             <div className="relative aspect-[1.414/1] w-full flex items-center justify-center group-hover:bg-transparent transition-colors duration-700">
                                                 <div className="relative w-[90%] h-[90%] overflow-hidden rounded-lg shadow-inner">
-                                                    <Image
+                                                    <ImageWithSkeleton
                                                         src={certificateImageUrl}
                                                         alt="Official Certificate"
                                                         fill
                                                         className="object-contain p-2 md:p-4 transition-transform duration-1000 group-hover:scale-[1.03]"
-                                                        unoptimized
                                                     />
                                                 </div>
                                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.02] rotate-[-15deg]">
@@ -456,7 +454,7 @@ export default function EsportsTemplate({ achievement }: Props) {
                     >
                         <div className="relative inline-block">
                             <div className="relative h-16 w-16 mx-auto opacity-20 animate-pulse">
-                                <Image
+                                <ImageWithSkeleton
                                     src="https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/Komponen%2Fthropy_cup_winner_medal_sport_icon_228609.png?alt=media&token=3f78eece-0a46-4d5a-8392-5a2d9c3c7b77"
                                     alt="Trophy"
                                     fill

@@ -2,7 +2,7 @@
 'use client';
 import RegisterForm from './components/RegisterForm';
 import { useRedirectIfAuthenticated } from '@/hooks/use-redirect-if-authenticated';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { useFirestore } from '@/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
@@ -34,7 +34,7 @@ export default function RegisterPage() {
             {siteLogo !== undefined && (
               siteLogo ? (
                 <div className="relative h-16 w-16 mx-auto mb-6">
-                  <Image src={siteLogo} alt="Logo" fill className="object-contain" />
+                  <ImageWithSkeleton src={siteLogo} alt="Logo" fill className="object-contain" />
                 </div>
               ) : (
                 <CodeConnectLogo isLoading={logoLoading} className="mx-auto h-16 w-16 text-primary mb-6" />

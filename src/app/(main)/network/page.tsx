@@ -1,7 +1,7 @@
 
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -129,7 +129,7 @@ export default function NetworkPage() {
         <div className="container grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-96 w-full rounded-lg overflow-hidden shadow-lg">
             {telkomCampusImage && (
-              <Image src={telkomCampusImage.imageUrl} alt="Telkom University Campus" fill className="object-cover" />
+              <ImageWithSkeleton src={telkomCampusImage.imageUrl} alt="Telkom University Campus" fill className="object-cover" />
             )}
           </div>
           <div>
@@ -207,7 +207,7 @@ export default function NetworkPage() {
                               <Card key={partner.id || partner.name} className="overflow-hidden transition-shadow hover:shadow-lg">
                                 <div className="grid sm:grid-cols-3 items-center">
                                   <div className="relative h-40 sm:h-full w-full sm:col-span-1">
-                                    {displayImage && <Image src={displayImage} alt={partner.name} fill className="object-cover" unoptimized />}
+                                    {displayImage && <ImageWithSkeleton src={displayImage} alt={partner.name} fill className="object-cover" unoptimized />}
                                   </div>
                                   <div className="p-6 sm:col-span-2">
                                     <CardTitle className="font-headline text-xl flex items-center gap-2">

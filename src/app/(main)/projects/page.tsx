@@ -3,7 +3,7 @@
 
 import { useState, useMemo, ReactNode } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -263,7 +263,7 @@ export default function ProjectsPage() {
                         </div>
                         {selectedProject.heroImageId && PlaceHolderImages.find(p => p.id === selectedProject.heroImageId) && (
                             <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
-                                <Image
+<ImageWithSkeleton 
                                     src={PlaceHolderImages.find(p => p.id === selectedProject.heroImageId)!.imageUrl}
                                     alt={selectedProject.title}
                                     fill

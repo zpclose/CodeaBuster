@@ -9,18 +9,18 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://codebusters.dev'),
 
   title: {
-    default: 'Komunitas Coding Indonesia - Codebusters',
+    default: 'Codebusters | Komunitas Teknologi Mahasiswa',
     template: '%s | Codebusters',
   },
 
   description:
-    'Komunitas developer Indonesia untuk belajar coding, membangun project, dan networking teknologi.',
+    'Komunitas teknologi mahasiswa untuk belajar coding, membangun project, dan networking di bidang teknologi.',
 
   keywords: [
-    'komunitas coding indonesia',
+    'komunitas teknologi mahasiswa',
     'komunitas programmer',
     'belajar coding gratis',
-    'developer community indonesia',
+    'komunitas mahasiswa teknologi',
     'codebusters'
   ],
 
@@ -37,12 +37,29 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: 'Komunitas Coding Indonesia - Codebusters',
+    title: 'Codebusters | Komunitas Teknologi Mahasiswa',
     description:
-      'Komunitas developer Indonesia untuk belajar coding dan teknologi.',
+      'Komunitas teknologi mahasiswa untuk belajar coding dan teknologi.',
     url: 'https://codebusters.dev',
     siteName: 'Codebusters',
     type: 'website',
+    images: [
+      {
+        url: '/api/og',
+        width: 1200,
+        height: 630,
+        alt: 'Codebusters - Komunitas Teknologi Mahasiswa',
+      },
+    ],
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Codebusters | Komunitas Teknologi Mahasiswa',
+    description: 'Komunitas teknologi mahasiswa untuk belajar coding dan teknologi.',
+    site: '@codebusters',
+    creator: '@codebusters',
+    images: ['/api/og'],
   },
 
   icons: {

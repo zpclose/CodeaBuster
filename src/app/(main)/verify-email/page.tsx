@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, CheckCircle, XCircle, Info } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CodeConnectLogo } from '@/components/icons';
 
@@ -100,7 +100,7 @@ function VerifyEmailContent() {
   return (
     <div className="relative min-h-screen w-full bg-background">
       {authImage && (
-        <Image src={authImage.imageUrl} alt="Background" fill className="object-cover blur-xl saturate-150" />
+        <ImageWithSkeleton src={authImage.imageUrl} alt="Background" fill className="object-cover blur-xl saturate-150" />
       )}
       <div className="absolute inset-0 bg-black/30" />
       <div className="relative flex min-h-screen items-center justify-center p-4">
@@ -109,7 +109,7 @@ function VerifyEmailContent() {
             {siteLogo !== undefined && (
               siteLogo ? (
                 <div className="relative h-12 w-12 mx-auto">
-                  <Image src={siteLogo} alt="Logo" fill className="object-contain" />
+                  <ImageWithSkeleton src={siteLogo} alt="Logo" fill className="object-contain" />
                 </div>
               ) : (
                 <CodeConnectLogo className="mx-auto h-12 w-12 text-primary" />

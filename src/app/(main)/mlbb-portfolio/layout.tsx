@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
@@ -17,7 +17,7 @@ export default function MlbbPortfolioLayout({
         <div className="container flex h-20 items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
              {mercuBuanaLogo && (
-               <Image 
+               <ImageWithSkeleton 
                  src={mercuBuanaLogo.imageUrl} 
                  alt="Universitas Mercu Buana" 
                  width={32} 

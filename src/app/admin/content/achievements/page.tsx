@@ -18,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Eye, EyeOff, ArrowLeft, Star, X, ExternalLink, Image as ImageIcon, Users, BarChart3, Trophy, Layers, Target } from 'lucide-react';
 import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import type { Achievement, AchievementFormData, AchievementCategory, PortfolioTemplate, PortfolioContent, PortfolioTeamMember, PortfolioHighlight, PortfolioLink, PortfolioStrategicPhase, PortfolioReadinessAudit } from '@/types/content';
 import ImageUploader from '@/app/admin/components/ImageUploader';
@@ -306,8 +307,8 @@ export default function AchievementsAdminPage() {
                                 {achievements.map((achievement) => (
                                     <div key={achievement.id} className="grid grid-cols-[80px_minmax(200px,2fr)_120px_80px_150px_120px_100px_100px] gap-4 px-6 py-3 text-sm border-b border-border/40 items-center hover:bg-muted/30 transition-colors">
                                         <div className="w-[80px]">
-                                            <div className="relative h-12 w-16 rounded-lg overflow-hidden border border-border/50 shadow-sm bg-muted/30">
-                                                <Image src={achievement.thumbnailUrl} alt={achievement.title} fill className="object-cover" />
+                                            <div className="relative h-12 w-16 rounded-lg overflow-hidden border border-border/50 shadow-sm">
+                                                <ImageWithSkeleton src={achievement.thumbnailUrl} alt={achievement.title} fill className="object-cover" skeletonClassName="rounded-lg" />
                                             </div>
                                         </div>
                                         <div className="font-medium truncate pr-2">{achievement.title}</div>

@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
@@ -181,7 +181,7 @@ export default function IcsitPortfolioPage() {
             <h3 className="text-2xl font-bold tracking-tight text-center text-foreground mb-12">Proses Pengembangan Sistem Kami</h3>
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div className="relative h-80 w-full">
-                {wireframeUrl && <Image src={wireframeUrl} alt="Arsitektur Sistem" fill className="rounded-lg object-cover shadow-lg" />}
+                {wireframeUrl && <ImageWithSkeleton src={wireframeUrl} alt="Arsitektur Sistem" fill className="rounded-lg object-cover shadow-lg" />}
               </div>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -237,7 +237,7 @@ export default function IcsitPortfolioPage() {
                         <CardContent className="p-0">
                           {url && (
                             <div className="relative h-[25rem] w-full">
-                              <Image src={url} alt={`Mockup ${index + 1}`} fill className="object-cover" />
+                              <ImageWithSkeleton src={url} alt={`Mockup ${index + 1}`} fill className="object-cover" />
                             </div>
                           )}
                         </CardContent>

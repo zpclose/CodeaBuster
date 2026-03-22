@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -110,7 +110,7 @@ function ChairpersonCollage({ mainImageUrl, secondaryImageUrl }: { mainImageUrl?
           viewport={{ once: true, amount: 0.5 }}
           transition={{ type: 'spring', stiffness: 80, damping: 15 }}
         >
-          <Image src={displaySecondary} alt="Mentorship session" fill className="object-cover" unoptimized />
+          <ImageWithSkeleton src={displaySecondary} alt="Mentorship session" fill className="object-cover" />
         </motion.div>
       )}
 
@@ -123,7 +123,7 @@ function ChairpersonCollage({ mainImageUrl, secondaryImageUrl }: { mainImageUrl?
           viewport={{ once: true, amount: 0.5 }}
           transition={{ type: 'spring', stiffness: 80, damping: 15, delay: 0.1 }}
         >
-          <Image src={displayMain} alt="Chairperson" fill className="object-cover" unoptimized />
+          <ImageWithSkeleton src={displayMain} alt="Chairperson" fill className="object-cover" />
         </motion.div>
       )}
     </div>
@@ -230,18 +230,17 @@ export default function Home() {
         className="relative h-screen w-full overflow-hidden"
       >
         {heroBackgroundUrl ? (
-          <Image
+          <ImageWithSkeleton
             src={heroBackgroundUrl}
             alt="Hero background"
             fill
             className="object-cover"
             priority
-            unoptimized
           />
         ) : (
           (() => {
             const heroImg = PlaceHolderImages.find(p => p.id === 'hero-background-main');
-            return heroImg ? <Image src={heroImg.imageUrl} alt="Hero background" fill className="object-cover" priority /> : null;
+            return heroImg ? <ImageWithSkeleton src={heroImg.imageUrl} alt="Hero background" fill className="object-cover" priority /> : null;
           })()
         )}
         <div className="absolute inset-0 bg-black/60" />
@@ -316,9 +315,9 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-10 flex items-center justify-start gap-4">
-              {effectiveTelkomLogoUrl && <Image src={effectiveTelkomLogoUrl} alt="Telkom University Logo" height={64} width={64} className="h-16 w-auto object-contain" unoptimized />}
+              {effectiveTelkomLogoUrl && <ImageWithSkeleton src={effectiveTelkomLogoUrl} alt="Telkom University Logo" height={64} width={64} className="h-16 w-auto object-contain" />}
               <div className="h-12 w-px bg-border" />
-              {effectiveMercuBuanaLogoUrl && <Image src={effectiveMercuBuanaLogoUrl} alt="Universitas Mercu Buana Logo" height={64} width={64} className="h-16 w-auto object-contain" unoptimized />}
+              {effectiveMercuBuanaLogoUrl && <ImageWithSkeleton src={effectiveMercuBuanaLogoUrl} alt="Universitas Mercu Buana Logo" height={64} width={64} className="h-16 w-auto object-contain" />}
             </div>
             <Button size="lg" asChild className="mt-12">
               <Link href="/about">Pelajari Visi Kami</Link>
@@ -334,13 +333,12 @@ export default function Home() {
                 {carouselItems.map((image, index) => (
                   <CarouselItem key={index}>
                     <div className="relative h-[600px] w-full">
-                      <Image
+                      <ImageWithSkeleton
                         src={image.imageUrl}
                         alt={image.description}
                         fill
                         className="object-cover"
-                        data-ai-hint={image.imageHint}
-                        unoptimized
+                        skeletonClassName="rounded-lg"
                       />
                     </div>
                   </CarouselItem>
@@ -363,7 +361,7 @@ export default function Home() {
         </svg>
         <div className="container text-center max-w-3xl mx-auto relative z-10">
           {effectiveTelkomLogoUrl && (
-            <Image src={effectiveTelkomLogoUrl} alt="Telkom University Logo" width={80} height={80} className="mx-auto mb-6 h-20 w-auto filter-white" unoptimized />
+            <ImageWithSkeleton src={effectiveTelkomLogoUrl} alt="Telkom University Logo" width={80} height={80} className="mx-auto mb-6 h-20 w-auto filter-white" />
           )}
           <h2 className="font-headline text-3xl md:text-4xl font-bold">
             The Telkom University Advantage
@@ -397,14 +395,14 @@ export default function Home() {
             <div className="flex items-center gap-4 pt-4">
               {chairpersonImageUrl && (
                 <div className="relative h-14 w-14 rounded-full overflow-hidden border-2 border-primary/20 shadow-sm">
-                  <Image src={chairpersonImageUrl} alt="Lacienta" fill className="object-cover object-top" unoptimized />
+                  <ImageWithSkeleton src={chairpersonImageUrl} alt="Mochamad Kevin K." fill className="object-cover object-top" skeletonClassName="rounded-full" />
                 </div>
               )}
               <div>
-                <p className="font-semibold">Lacienta</p>
+                <p className="font-semibold">Mochamad Kevin K.</p>
                 <p className="text-sm text-primary">Chairperson, Tel-Nect</p>
               </div>
-              <Image src="https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FSignature%2011.png?alt=media&token=35181cf6-6bb7-464b-89bc-8bba10971d5f" alt="Signature" width={250} height={100} className="ml-auto opacity-70" unoptimized />
+              <ImageWithSkeleton src="https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/A1%2FSignature%2011.png?alt=media&token=35181cf6-6bb7-464b-89bc-8bba10971d5f" alt="Signature" width={250} height={100} className="ml-auto opacity-70" />
             </div>
           </div>
         </div>
@@ -484,7 +482,7 @@ export default function Home() {
                 <Link href="/achievements" className="block h-full">
                   <Card className="h-full border-2 border-border/50 overflow-hidden group shadow-none hover:border-primary/30 transition-all duration-500">
                     <div className="relative aspect-video w-full overflow-hidden bg-muted">
-                      {(() => { const img = featuredAchievement.thumbnailUrl || PlaceHolderImages.find(p => p.id === featuredAchievement.thumbnailId)?.imageUrl; return img ? <Image src={img} alt={featuredAchievement.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" unoptimized /> : null; })()}
+                      {(() => { const img = featuredAchievement.thumbnailUrl || PlaceHolderImages.find(p => p.id === featuredAchievement.thumbnailId)?.imageUrl; return img ? <ImageWithSkeleton src={img} alt={featuredAchievement.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" /> : null; })()}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                       <div className="absolute top-6 right-6">
                         <Badge className="bg-amber-500 text-black font-bold uppercase tracking-widest text-[10px] px-3 py-1 rounded-none">{featuredAchievement.award}</Badge>
@@ -512,7 +510,7 @@ export default function Home() {
                       <Card className="border-none bg-muted/50 hover:bg-muted transition-colors group">
                         <CardContent className="p-6 flex gap-6 items-start">
                           <div className="relative h-24 w-24 rounded-xl overflow-hidden shrink-0 shadow-lg bg-muted/50">
-                            {img && <Image src={img} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" unoptimized />}
+                            {img && <ImageWithSkeleton src={img} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" skeletonClassName="rounded-xl" />}
                           </div>
                           <div className="space-y-2">
                             <Badge variant="outline" className="text-[9px] uppercase tracking-widest border-primary/30 text-primary">{item.award}</Badge>
@@ -579,17 +577,16 @@ export default function Home() {
                   <div key={member.id} className="group relative flex flex-col">
                     <div className="relative aspect-[3/4] overflow-hidden cut-corner-image shadow-md transition-shadow hover:shadow-xl bg-muted/20">
                       {imageUrl && (
-                        <Image
+                        <ImageWithSkeleton
                           src={imageUrl}
                           alt={member.name}
                           fill
                           className="object-cover object-top grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
-                          unoptimized
                         />
                       )}
                       {logoUrl && (
                         <div className="absolute top-6 left-6 h-10 w-10 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center p-2 border border-white/10">
-                          <Image src={logoUrl} alt="University Logo" width={24} height={24} className="object-contain filter-white opacity-80" unoptimized />
+                          <ImageWithSkeleton src={logoUrl} alt="University Logo" width={24} height={24} className="object-contain filter-white opacity-80" />
                         </div>
                       )}
                       <div className="absolute inset-y-0 right-0 w-12 bg-black/40 backdrop-blur-xl translate-x-full group-hover:translate-x-0 transition-transform duration-300 flex flex-col items-center justify-center gap-6 border-l border-white/10">

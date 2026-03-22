@@ -8,6 +8,7 @@ import { useUser, useFirestore } from '@/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import SafeImage from '@/components/ui/safe-image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 
 export default function Footer() {
   const { user } = useUser();
@@ -44,12 +45,13 @@ export default function Footer() {
                 <CodeConnectLogo isLoading={true} className="h-10 w-10 text-primary" />
               ) : siteLogo ? (
                 <div className="relative h-10 w-10">
-                  <SafeImage
+                  <ImageWithSkeleton
                     src={siteLogo}
                     alt="Logo"
                     fill
                     className="object-contain"
                     fallback="/placeholder-image.jpg"
+                    skeletonClassName="rounded-md"
                   />
                 </div>
               ) : (

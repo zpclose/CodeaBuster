@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { usePathname, useRouter } from 'next/navigation';
 import { CodeConnectLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -77,14 +77,14 @@ function PartnersDropdown() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem asChild>
-          <a href="https://telkomuniversity.ac.id/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-            <Image src="https://upload.wikimedia.org/wikipedia/commons/0/03/Logo_Telkom_University_potrait.png" alt="Telkom University Logo" width={24} height={24} className="object-contain" />
+            <a href="https://telkomuniversity.ac.id/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+            <ImageWithSkeleton src="https://upload.wikimedia.org/wikipedia/commons/0/03/Logo_Telkom_University_potrait.png" alt="Telkom University Logo" width={24} height={24} className="object-contain" />
             <span>Telkom University</span>
           </a>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <a href="https://www.mercubuana.ac.id/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-            <Image src="https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/LOGO_UNIVERSITAS_MERCU_BUANA.png?alt=media&token=f7d3fdf6-26a4-46cb-9dce-f3bb83d131dd" alt="Universitas Mercu Buana Logo" width={24} height={24} className="object-contain" />
+            <a href="https://www.mercubuana.ac.id/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+            <ImageWithSkeleton src="https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/LOGO_UNIVERSITAS_MERCU_BUANA.png?alt=media&token=f7d3fdf6-26a4-46cb-9dce-f3bb83d131dd" alt="Universitas Mercu Buana Logo" width={24} height={24} className="object-contain" />
             <span>Universitas Mercu Buana</span>
           </a>
         </DropdownMenuItem>
@@ -200,12 +200,13 @@ export default function Header() {
               <div className="h-8 w-8 rounded-md bg-muted animate-pulse" />
             ) : siteLogo ? (
               <div className="relative h-8 w-8 transition-transform group-hover:scale-110">
-                <SafeImage
+                <ImageWithSkeleton
                   src={siteLogo}
                   alt="Logo"
                   fill
                   className="object-contain"
                   fallback="/placeholder-image.jpg"
+                  skeletonClassName="rounded-md"
                 />
               </div>
             ) : (
@@ -319,14 +320,14 @@ export default function Header() {
                           <h4 className="px-4 mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Mitra Strategis</h4>
                           <a href="https://telkomuniversity.ac.id/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between px-4 py-3 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-colors">
                             <div className="flex items-center gap-3">
-                              <Image src="https://upload.wikimedia.org/wikipedia/commons/0/03/Logo_Telkom_University_potrait.png" alt="TU" width={24} height={24} className="object-contain" />
+                              <ImageWithSkeleton src="https://upload.wikimedia.org/wikipedia/commons/0/03/Logo_Telkom_University_potrait.png" alt="TU" width={24} height={24} className="object-contain" />
                               <span>Telkom University</span>
                             </div>
                             <ExternalLink className="h-3 w-3 opacity-50" />
                           </a>
                           <a href="https://www.mercubuana.ac.id/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between px-4 py-3 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-colors">
                             <div className="flex items-center gap-3">
-                              <Image src="https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/LOGO_UNIVERSITAS_MERCU_BUANA.png?alt=media&token=f7d3fdf6-26a4-46cb-9dce-f3bb83d131dd" alt="UMB" width={24} height={24} className="object-contain" />
+                              <ImageWithSkeleton src="https://firebasestorage.googleapis.com/v0/b/studio-8681629558-68f05.firebasestorage.app/o/LOGO_UNIVERSITAS_MERCU_BUANA.png?alt=media&token=f7d3fdf6-26a4-46cb-9dce-f3bb83d131dd" alt="UMB" width={24} height={24} className="object-contain" />
                               <span>Mercu Buana</span>
                             </div>
                             <ExternalLink className="h-3 w-3 opacity-50" />

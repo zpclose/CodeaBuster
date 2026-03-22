@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -378,8 +378,8 @@ export default function ProfilePage() {
                           <p className="font-semibold">{project.name}</p>
                           {project.isCollaborative && (
                             <div className="flex items-center gap-1">
-                              <Image src={institutionLogo['Telkom University']} alt="Telkom University" width={16} height={16} />
-                              <Image src={institutionLogo['Universitas Mercu Buana']} alt="Universitas Mercu Buana" width={16} height={16} />
+                              <ImageWithSkeleton src={institutionLogo['Telkom University']} alt="Telkom University" width={16} height={16} />
+                              <ImageWithSkeleton src={institutionLogo['Universitas Mercu Buana']} alt="Universitas Mercu Buana" width={16} height={16} />
                             </div>
                           )}
                         </div>

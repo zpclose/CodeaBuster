@@ -2,7 +2,7 @@
 'use client';
 
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Tag, User, Pin, Clock, CheckCircle, Quote, Info, ChevronDown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -76,7 +76,7 @@ export default function EventDetailPageContent({ event }: { event: Event }) {
                 }}
             >
                 {eventImage && (
-                    <Image
+<ImageWithSkeleton 
                         src={eventImage.imageUrl}
                         alt={event.title}
                         fill

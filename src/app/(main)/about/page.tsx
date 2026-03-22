@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useDynamicPageImages } from '@/hooks/useDynamicPageImages';
 import { Button } from '@/components/ui/button';
@@ -111,12 +111,11 @@ export default function AboutPage() {
       >
         {telkomImageUrl && (
           <>
-            <Image
+<ImageWithSkeleton 
               src={telkomImageUrl}
               alt="About Hero"
               fill
               className="object-cover"
-              unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/30" />
           </>
@@ -176,12 +175,11 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="relative h-96 w-full max-w-sm mx-auto">
               {rectorImageUrl &&
-                <Image
+    <ImageWithSkeleton 
                   src={rectorImageUrl}
                   alt="Rektor Telkom University"
                   fill
                   className="object-cover object-top rounded-lg shadow-2xl"
-                  unoptimized
                 />
               }
             </div>
@@ -254,12 +252,11 @@ export default function AboutPage() {
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
               {aboutImageUrlBig && (
-                <Image
+    <ImageWithSkeleton 
                   src={aboutImageUrlBig}
                   alt="Dekorasi Abstract"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  unoptimized
                 />
               )}
             </motion.div>
@@ -273,12 +270,11 @@ export default function AboutPage() {
               transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
               {aboutImageUrlSmall && (
-                <Image
+    <ImageWithSkeleton 
                   src={aboutImageUrlSmall}
                   alt="About Us"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  unoptimized
                 />
               )}
             </motion.div>
@@ -292,12 +288,11 @@ export default function AboutPage() {
               transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
             >
               {telkomLogoUrl && (
-                <Image
+    <ImageWithSkeleton 
                   src={telkomLogoUrl}
                   alt="Telkom Logo"
                   fill
                   className="object-contain p-8"
-                  unoptimized
                 />
               )}
             </motion.div>

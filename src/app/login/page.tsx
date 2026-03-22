@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -159,7 +159,7 @@ export default function LoginPage() {
   return (
     <div className="relative min-h-screen w-full bg-background">
       {authImage && (
-        <Image
+        <ImageWithSkeleton
           src={authImage.imageUrl}
           alt="Abstract background"
           fill
@@ -175,7 +175,7 @@ export default function LoginPage() {
             {siteLogo !== undefined && (
               siteLogo ? (
                 <div className="relative h-16 w-16 mx-auto">
-                  <Image
+                  <ImageWithSkeleton
                     src={siteLogo}
                     alt="Logo"
                     fill

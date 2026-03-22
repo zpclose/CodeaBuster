@@ -9,7 +9,7 @@ import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { collection, addDoc, deleteDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { Loader2, Upload, Trash2, ImageIcon, ExternalLink } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 
 export default function ManageImagesPage() {
   const firestore = useFirestore();
@@ -118,8 +118,8 @@ export default function ManageImagesPage() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {images?.map((img) => (
             <Card key={img.id} className="group overflow-hidden relative">
-              <div className="relative aspect-square bg-muted">
-                <Image 
+              <div className="relative aspect-square">
+                <ImageWithSkeleton 
                   src={img.url} 
                   alt={img.name} 
                   fill 

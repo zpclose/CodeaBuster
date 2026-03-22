@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Linkedin, Github, Users, ShieldCheck, Handshake, TrendingUp, Layers, Server, Lightbulb, UserCheck, HardHat, Trophy, ArrowRight, BookOpen, LineChart, Cpu, CheckCircle, GitMerge } from 'lucide-react';
@@ -273,7 +273,7 @@ export default function ManagementPage() {
                                   <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-8">
                                     {displayImageUrl && (
                                       <div className="relative h-32 w-32 rounded-full flex-shrink-0 overflow-hidden border-4 border-card shadow-lg transition-all duration-300 group-hover:border-primary/20">
-                                        <Image
+                                        <ImageWithSkeleton
                                           src={displayImageUrl}
                                           alt={`Photo of ${member.name}`}
                                           fill
@@ -327,7 +327,7 @@ export default function ManagementPage() {
                               <CardContent className="p-0 flex-shrink-0">
                                 <div className="relative h-64 w-full">
                                   {displayImageUrl && (
-                                    <Image
+                                    <ImageWithSkeleton
                                       src={displayImageUrl}
                                       alt={member.name}
                                       fill
@@ -428,7 +428,7 @@ export default function ManagementPage() {
                         <p className="text-muted-foreground mt-1 text-sm">{directive.description}</p>
                         {leader && (
                           <div className="flex items-center gap-2 mt-4 pt-3 border-t">
-                            {leaderImageUrl && <Image src={leaderImageUrl} alt={leader.name} width={24} height={24} className="rounded-full h-6 w-6 object-cover" />}
+                            {leaderImageUrl && <ImageWithSkeleton src={leaderImageUrl} alt={leader.name} width={24} height={24} className="rounded-full h-6 w-6 object-cover" />}
                             <span className="text-xs font-semibold text-muted-foreground">{leader.name}</span>
                           </div>
                         )}

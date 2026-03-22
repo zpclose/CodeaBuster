@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function SifonixPortfolioLayout({
@@ -16,7 +16,7 @@ export default function SifonixPortfolioLayout({
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             {mercuBuanaLogo && (
-              <Image
+              <ImageWithSkeleton
                 src={mercuBuanaLogo.imageUrl}
                 alt="Codebusters Mercu Buana"
                 width={28}

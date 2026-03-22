@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -41,7 +41,7 @@ export default function CompetitionTemplate({ achievement }: Props) {
                 {/* Hero image */}
                 {pc.heroImageUrl && (
                     <>
-                        <Image src={pc.heroImageUrl} alt={title} fill className="object-cover" priority unoptimized />
+                        <ImageWithSkeleton src={pc.heroImageUrl} alt={title} fill className="object-cover" priority />
                         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-zinc-950/20" />
                     </>
                 )}
@@ -188,7 +188,7 @@ export default function CompetitionTemplate({ achievement }: Props) {
                     >
                         {pc.galleryImages.map((url, i) => (
                             <div key={i} className="relative flex-shrink-0 w-72 md:w-96 h-52 md:h-64 rounded-lg overflow-hidden border border-white/5 snap-start">
-                                <Image src={url} alt={`Gallery ${i + 1}`} fill className="object-cover" unoptimized />
+                                <ImageWithSkeleton src={url} alt={`Gallery ${i + 1}`} fill className="object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                             </div>
                         ))}
@@ -216,7 +216,7 @@ export default function CompetitionTemplate({ achievement }: Props) {
                                 >
                                     {member.avatarUrl ? (
                                         <div className="relative h-16 w-16 rounded-full overflow-hidden mb-4 border-2 border-white/10 group-hover:border-red-500/40 transition-colors">
-                                            <Image src={member.avatarUrl} alt={member.name} fill className="object-cover" unoptimized />
+                                            <ImageWithSkeleton src={member.avatarUrl} alt={member.name} fill className="object-cover" />
                                         </div>
                                     ) : (
                                         <div className="h-16 w-16 rounded-full bg-zinc-800 flex items-center justify-center mb-4 border-2 border-white/5 text-2xl font-black text-zinc-600">

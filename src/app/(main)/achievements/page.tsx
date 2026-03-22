@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useRef, useEffect } from 'react';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -195,7 +195,7 @@ function FeaturedShowcase({ achievements }: { achievements: any[] }) {
                     >
                         <div className="relative aspect-video md:aspect-[21/9] w-full overflow-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] border-[10px] border-card bg-muted">
                             {displayImageUrl && (
-                                <Image
+                                <ImageWithSkeleton
                                     src={displayImageUrl}
                                     alt={featured.title}
                                     fill
@@ -270,7 +270,7 @@ function FeaturedShowcase({ achievements }: { achievements: any[] }) {
                                             <div className="flex items-center gap-5">
                                                 {displayCuratorUrl && (
                                                     <div className="relative h-10 w-10 rounded-full overflow-hidden border-2 border-primary/20 shrink-0 grayscale">
-                                                        <Image src={displayCuratorUrl} alt="Curator" fill className="object-cover" />
+                                                        <ImageWithSkeleton src={displayCuratorUrl} alt="Curator" fill className="object-cover" />
                                                     </div>
                                                 )}
                                                 <div className="space-y-0.5">
@@ -455,7 +455,7 @@ export default function AchievementsPage() {
                                             <Card className="h-full flex flex-col overflow-hidden rounded-none border-2 border-border bg-card hover:border-foreground/20 transition-all duration-500 shadow-sm hover:shadow-2xl">
                                                 <div className="relative aspect-video w-full overflow-hidden border-b-2 bg-muted/10">
                                                     {displayImageUrl && (
-                                                        <Image
+                                                        <ImageWithSkeleton
                                                             src={displayImageUrl}
                                                             alt={achievement.title}
                                                             fill
@@ -486,9 +486,9 @@ export default function AchievementsPage() {
                                                     <div className="flex items-center gap-4">
                                                         <div className="h-8 w-8 flex items-center justify-center shrink-0">
                                                             {isTelkom ? (
-                                                                <> {telkomLogo && <Image src={telkomLogo.imageUrl} alt="TU" width={32} height={32} className="h-10 object-contain grayscale group-hover:grayscale-0 transition-all" />} </>
+                                                                <> {telkomLogo && <ImageWithSkeleton src={telkomLogo.imageUrl} alt="TU" width={32} height={32} className="h-10 object-contain grayscale group-hover:grayscale-0 transition-all" />} </>
                                                             ) : (
-                                                                <> {mercuBuanaLogo && <Image src={mercuBuanaLogo.imageUrl} alt="UMB" width={32} height={32} className="h-10 object-contain grayscale group-hover:grayscale-0 transition-all" />} </>
+                                                                <> {mercuBuanaLogo && <ImageWithSkeleton src={mercuBuanaLogo.imageUrl} alt="UMB" width={32} height={32} className="h-10 object-contain grayscale group-hover:grayscale-0 transition-all" />} </>
                                                             )}
                                                         </div>
 

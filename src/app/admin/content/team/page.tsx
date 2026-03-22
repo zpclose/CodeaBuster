@@ -16,8 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Eye, EyeOff, ArrowLeft } from 'lucide-react';
-import Image from 'next/image';
-import SafeImage from '@/components/ui/safe-image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import Link from 'next/link';
 import type { TeamMember, TeamMemberFormData, TeamMemberTier } from '@/types/content';
 import ImageUploader from '@/app/admin/components/ImageUploader';
@@ -270,13 +269,14 @@ export default function TeamMembersAdminPage() {
                                 {members.map((member) => (
                                     <div key={member.id} className="grid grid-cols-[80px_minmax(180px,1fr)_minmax(150px,1fr)_minmax(150px,1fr)_150px_100px_100px] gap-4 px-6 py-3 text-sm border-b border-border/40 items-center hover:bg-muted/30 transition-colors">
                                         <div className="w-[80px]">
-                                            <div className="relative h-12 w-12 rounded-full overflow-hidden border border-border/50 shadow-sm bg-muted/30">
-                                                <SafeImage
+                                            <div className="relative h-12 w-12 rounded-full overflow-hidden border border-border/50 shadow-sm">
+                                                <ImageWithSkeleton
                                                     src={member.imageUrl}
                                                     alt={member.name}
                                                     fill
                                                     className="object-cover"
                                                     fallback="/placeholder-avatar.jpg"
+                                                    skeletonClassName="rounded-full"
                                                 />
                                             </div>
                                         </div>

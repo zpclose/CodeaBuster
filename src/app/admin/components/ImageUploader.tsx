@@ -2,8 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Trash2, Upload, X, Image as ImageIcon } from 'lucide-react';
-import Image from 'next/image';
-import SafeImage from '@/components/ui/safe-image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { uploadImage, deleteImage, generateUniqueFilename, getStoragePath, UploadProgress } from '@/lib/storage-utils';
@@ -107,13 +106,14 @@ export default function ImageUploader({
             {/* Preview */}
             {previewUrl ? (
                 <div className="space-y-2">
-                    <div className="relative w-full aspect-video rounded-lg overflow-hidden border bg-muted group">
-                        <SafeImage
+                    <div className="relative w-full aspect-video rounded-lg overflow-hidden border group">
+                        <ImageWithSkeleton
                             src={previewUrl}
                             alt="Preview"
                             fill
                             className="object-cover"
                             fallback="/placeholder-image.jpg"
+                            skeletonClassName="rounded-lg"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <Button

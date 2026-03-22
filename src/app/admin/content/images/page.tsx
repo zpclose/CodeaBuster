@@ -15,7 +15,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { PAGE_IMAGE_CATEGORIES, type ImageSlot, type PageCategory } from '@/lib/page-image-slots';
 import { ImageIcon, Upload, Trash2, RefreshCw, CheckCircle, Eye, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 
 interface FirestoreOverride {
     slot: string;
@@ -273,12 +273,12 @@ export default function ImagesManagementPage() {
                                             {/* Image Preview */}
                                             <div className="relative h-48 w-full bg-muted/40 border-b border-border/10 group">
                                                 {effectiveUrl ? (
-                                                    <Image
+                                                    <ImageWithSkeleton
                                                         src={effectiveUrl}
                                                         alt={slot.label}
                                                         fill
                                                         className="object-cover"
-                                                        unoptimized
+                                                        skeletonClassName="rounded-none"
                                                     />
                                                 ) : (
                                                     <div className="flex items-center justify-center h-full text-muted-foreground">
@@ -378,12 +378,12 @@ export default function ImagesManagementPage() {
                             <div>
                                 <p className="text-xs font-medium text-muted-foreground mb-2">Gambar Saat Ini:</p>
                                 <div className="relative h-28 w-full rounded-xl overflow-hidden bg-muted border border-border/50">
-                                    <Image
+                                    <ImageWithSkeleton
                                         src={getEffectiveUrl(uploadTarget.slot.slot)}
                                         alt="Current"
                                         fill
                                         className="object-cover opacity-70"
-                                        unoptimized
+                                        skeletonClassName="rounded-xl"
                                     />
                                 </div>
                             </div>
@@ -397,7 +397,7 @@ export default function ImagesManagementPage() {
                                 onClick={() => fileInputRef.current?.click()}
                             >
                                 {imagePreview ? (
-                                    <Image src={imagePreview} alt="Preview" fill className="object-cover" />
+                                    <ImageWithSkeleton src={imagePreview} alt="Preview" fill className="object-cover" />
                                 ) : (
                                     <div className="text-center text-muted-foreground p-4">
                                         <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
@@ -459,7 +459,7 @@ export default function ImagesManagementPage() {
                 <DialogContent className="max-w-5xl p-0 overflow-hidden bg-transparent border-none shadow-none">
                     <div className="relative h-[85vh] w-full flex items-center justify-center group">
                         {previewUrl && (
-                            <Image src={previewUrl} alt="Preview" fill className="object-contain drop-shadow-2xl" unoptimized />
+                            <ImageWithSkeleton src={previewUrl} alt="Preview" fill className="object-contain drop-shadow-2xl" />
                         )}
                     </div>
                 </DialogContent>

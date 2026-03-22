@@ -1,7 +1,7 @@
 
 'use client';
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { Users, ArrowRight, BrainCircuit, Briefcase, Handshake, Trophy, Gem } from 'lucide-react';
@@ -126,7 +126,7 @@ export default function MembersPage() {
         <div className="container mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           <motion.div variants={sectionVariants}>
             <Card className="h-full flex flex-col p-8 items-center text-center bg-gray-900/50 border-primary/50 backdrop-blur-sm shadow-xl shadow-primary/10">
-              {telkomLogo && <Image src={telkomLogo.imageUrl} alt="Telkom University Logo" width={48} height={48} className="h-12 w-auto object-contain mb-6 filter-white" />}
+              {telkomLogo && <ImageWithSkeleton src={telkomLogo.imageUrl} alt="Telkom University Logo" width={48} height={48} className="h-12 w-auto object-contain mb-6 filter-white" />}
               <CardHeader className="p-0">
                 <CardTitle className="font-headline text-2xl text-white">The Telkom Foundation</CardTitle>
                 <p className="text-primary font-semibold">Engineering & Foundational Excellence</p>
@@ -138,7 +138,7 @@ export default function MembersPage() {
           </motion.div>
           <motion.div variants={sectionVariants}>
             <Card className="h-full flex flex-col p-8 items-center text-center bg-gray-900/50 border-accent/50 backdrop-blur-sm shadow-xl shadow-accent/10">
-              {mercuBuanaLogo && <Image src={mercuBuanaLogo.imageUrl} alt="Universitas Mercu Buana Logo" width={48} height={48} className="h-12 w-auto object-contain mb-6 filter-white" />}
+              {mercuBuanaLogo && <ImageWithSkeleton src={mercuBuanaLogo.imageUrl} alt="Universitas Mercu Buana Logo" width={48} height={48} className="h-12 w-auto object-contain mb-6 filter-white" />}
               <CardHeader className="p-0">
                 <CardTitle className="font-headline text-2xl text-white">The Mercu Buana Catalyst</CardTitle>
                 <p className="text-accent font-semibold">Creative & Industrial Dynamism</p>
@@ -215,13 +215,12 @@ export default function MembersPage() {
                       </blockquote>
                       <div className="mt-6 flex items-center gap-4 z-10">
                         {testimonial.imageUrl && (
-                          <Image
+                          <ImageWithSkeleton
                             src={testimonial.imageUrl}
                             alt={`Photo of ${testimonial.name}`}
                             width={56}
                             height={56}
                             className="rounded-full object-cover h-14 w-14 border-2 border-gray-900"
-                            unoptimized
                           />
                         )}
                         <div>

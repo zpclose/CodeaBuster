@@ -1,5 +1,5 @@
 
-import Image from 'next/image';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Cpu, Target, Layers, Link as LinkIcon, Github, MessageSquare } from 'lucide-react';
@@ -58,7 +58,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
             {/* Hero Section */}
             <section className="relative h-[40vh] md:h-[50vh] w-full overflow-hidden bg-gray-800">
                 {heroImage && (
-                    <Image
+                    <ImageWithSkeleton
                         src={heroImage.imageUrl}
                         alt={project.title}
                         fill
@@ -123,7 +123,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                                     const avatar = PlaceHolderImages.find(p => p.id === member.avatarId);
                                     return (
                                         <div key={member.name} className="flex items-center gap-3">
-                                            {avatar && <Image src={avatar.imageUrl} alt={member.name} width={40} height={40} className="rounded-full h-10 w-10 object-cover" />}
+                                            {avatar && <ImageWithSkeleton src={avatar.imageUrl} alt={member.name} width={40} height={40} className="rounded-full h-10 w-10 object-cover" />}
                                             <div>
                                                 <p className="font-semibold">{member.name}</p>
                                                 <p className="text-sm text-muted-foreground">{member.role}</p>
