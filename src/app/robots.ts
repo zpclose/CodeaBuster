@@ -14,6 +14,6 @@ export default function robots(): MetadataRoute.Robots {
                 '/profile',
             ],
         },
-        sitemap: 'https://codebusters.dev/sitemap.xml',
+        sitemap: 'https://www.codebustersconnect.com/sitemap.xml',
     };
 }
