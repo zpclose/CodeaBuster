@@ -12,6 +12,15 @@ const SEO_AND_STATIC_PATHS = new Set([
   '/manifest.webmanifest',
 ]);
 
+const NOINDEX_PATHS = [
+  '/login',
+  '/register',
+  '/forgot-password',
+  '/reset-password',
+  '/verify-email',
+  '/maintenance',
+];
+
 function isStaticAsset(pathname: string): boolean {
   if (pathname.startsWith('/_next/')) return true;
   if (pathname.startsWith('/.well-known/')) return true;
@@ -29,6 +38,9 @@ export async function middleware(request: NextRequest) {
   }
 
   const isSeoOrStatic = SEO_AND_STATIC_PATHS.has(pathname) || isStaticAsset(pathname);
+  const isNoindexPath = NOINDEX_PATHS.some(
+    (route) => pathname === route || pathname.startsWith(route + '/')
+  );
 
   // Security Headers - Always set these
   const response = NextResponse.next();
@@ -40,6 +52,16 @@ export async function middleware(request: NextRequest) {
   response.headers.set('Pragma', 'no-cache');
   response.headers.set('Expires', '0');
   response.headers.set('Content-Security-Policy', "frame-ancestors 'none'");
+
+  // Canonical + noindex hints for crawlers
+  if (!isSeoOrStatic && !pathname.startsWith('/api')) {
+    const canonicalUrl = `https://${CANONICAL_HOST}${pathname === '/' ? '/' : pathname}`;
+    response.headers.set('Link', `<${canonicalUrl}>; rel="canonical"`);
+  }
+
+  if (isNoindexPath) {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  }
 
   // 1. Rate Limit for APIs
   if (pathname.startsWith('/api')) {
