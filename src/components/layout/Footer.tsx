@@ -98,7 +98,7 @@ export default function Footer() {
               <ul className="space-y-1">
                 <li><Link href="/management" className="text-sm text-muted-foreground hover:text-primary">Pengurus</Link></li>
                 <li><Link href="/idea-generator" className="text-sm text-muted-foreground hover:text-primary">AI Idea Generator</Link></li>
-                <li><Link href="/contact" className="text-sm text-muted-foreground hover:text-primary">Gabung</Link></li>
+                <li><Link href="/register" className="text-sm text-muted-foreground hover:text-primary">Gabung</Link></li>
                 <li><Link href="/submit-proposal" className="text-sm text-muted-foreground hover:text-primary">Ajukan Proyek</Link></li>
               </ul>
             </div>
