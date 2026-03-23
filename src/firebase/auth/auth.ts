@@ -20,7 +20,7 @@ export async function sendVerificationEmail(user: any) {
     console.log("Sending verification email to:", user.email);
     const actionCodeSettings = {
       url: `${window.location.origin}/auth/action`,
-      handleCodeInApp: true,
+      handleCodeInApp: false,
     };
     try {
       await firebaseSendEmailVerification(user, actionCodeSettings);
@@ -35,7 +35,7 @@ export async function sendVerificationEmail(user: any) {
 export async function sendPasswordResetEmail(auth: Auth, email: string) {
   const actionCodeSettings = {
     url: `${window.location.origin}/auth/action`,
-    handleCodeInApp: true,
+    handleCodeInApp: false,
   };
   await firebaseSendPasswordResetEmail(auth, email, actionCodeSettings);
 }
@@ -43,7 +43,7 @@ export async function sendPasswordResetEmail(auth: Auth, email: string) {
 export async function sendEmailChangeVerification(user: User, newEmail: string) {
   const actionCodeSettings = {
     url: `${window.location.origin}/auth/action`,
-    handleCodeInApp: true,
+    handleCodeInApp: false,
   };
   await firebaseVerifyBeforeUpdateEmail(user, newEmail, actionCodeSettings);
 }
