@@ -7,13 +7,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Globe, Smartphone, Trash2, Loader2, AlertCircle, ShieldAlert } from 'lucide-react';
+import { Globe, Loader2, AlertCircle, ShieldAlert } from 'lucide-react';
 import { useState } from 'react';
 import { useUser, useAuth } from '@/firebase';
-import { updatePassword, EmailAuthProvider, reauthenticateWithCredential, verifyBeforeUpdateEmail, getAuth } from 'firebase/auth';
+import { updatePassword, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { sendSecurityNotification } from '@/app/actions/email-actions';
+import { sendEmailChangeVerification } from '@/firebase/auth/auth';
 
 function AccountSecurityForm() {
     const { user } = useUser();
@@ -36,26 +36,19 @@ function AccountSecurityForm() {
         setIsLoadingEmail(true);
         setError(null);
         try {
-            const oldEmail = user.email;
-            const credential = EmailAuthProvider.credential(oldEmail, emailData.password);
+            const credential = EmailAuthProvider.credential(user.email, emailData.password);
             
             // Re-otentikasi untuk keamanan
             await reauthenticateWithCredential(user, credential);
             
-            // 1. Kirim Notifikasi ke EMAIL LAMA (via Resend)
-            await sendSecurityNotification(oldEmail, emailData.newEmail);
-            
-            // 2. Kirim Link Verifikasi ke EMAIL BARU (via Firebase)
-            // Ini wajib ke email baru agar Firebase bisa memverifikasi kepemilikannya.
-            const actionCodeSettings = {
-                url: `${window.location.origin}/auth/action`,
-                handleCodeInApp: true,
-            };
-            await verifyBeforeUpdateEmail(user, emailData.newEmail, actionCodeSettings);
+            // Kirim Link Verifikasi ke EMAIL BARU (via Firebase Auth)
+            // Firebase Auth akan mengirim email verifikasi ke email baru
+            // User harus klik link di email baru untuk mengkonfirmasi perubahan
+            await sendEmailChangeVerification(user, emailData.newEmail);
             
             toast({ 
-                title: "Proses Dimulai", 
-                description: "Notifikasi dikirim ke email lama Anda. Silakan periksa email BARU Anda untuk memverifikasi perubahan." 
+                title: "Verifikasi Dikirim", 
+                description: "Link verifikasi telah dikirim ke email baru Anda. Silakan cek inbox dan klik link tersebut untuk mengkonfirmasi perubahan email." 
             });
             setEmailData({ newEmail: '', password: '' });
         } catch (err: any) {
@@ -111,7 +104,7 @@ function AccountSecurityForm() {
                         <CardTitle className="font-headline text-2xl flex items-center gap-2">
                             Alamat Email
                         </CardTitle>
-                        <CardDescription>Ubah alamat email Anda. Notifikasi akan dikirim ke email lama.</CardDescription>
+                        <CardDescription>Ubah alamat email Anda dengan verifikasi ke email baru.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
@@ -143,7 +136,7 @@ function AccountSecurityForm() {
                         <Alert className="bg-blue-50 border-blue-200">
                             <ShieldAlert className="h-4 w-4 text-blue-600" />
                             <AlertDescription className="text-xs text-blue-700">
-                                Kami akan mengirimkan email konfirmasi ke alamat lama Anda untuk keamanan, dan link verifikasi ke alamat baru.
+                                Link verifikasi akan dikirim ke email baru Anda. Klik link tersebut untuk mengkonfirmasi perubahan email.
                             </AlertDescription>
                         </Alert>
                     </CardContent>
@@ -154,7 +147,7 @@ function AccountSecurityForm() {
                             className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
                         >
                             {isLoadingEmail && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Update Email & Beritahu Email Lama
+                            Kirim Link Verifikasi
                         </Button>
                     </CardFooter>
                 </Card>

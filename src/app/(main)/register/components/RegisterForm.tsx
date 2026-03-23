@@ -88,14 +88,26 @@ export default function RegisterForm() {
 
         try {
             const userCredential = await signUpWithEmailAndPassword(auth, firestore, values);
-            await sendVerificationEmail(userCredential.user);
-            await auth.signOut();
-            toast({
-                title: "Pendaftaran Berhasil!",
-                description: "Silakan cek email Anda untuk verifikasi akun. Jangan lupa cek folder Spam.",
-            });
+            
+            try {
+                await sendVerificationEmail(userCredential.user);
+                await auth.signOut();
+                toast({
+                    title: "Pendaftaran Berhasil!",
+                    description: "Silakan cek email Anda untuk verifikasi akun. Jangan lupa cek folder Spam.",
+                });
+            } catch (emailError: any) {
+                console.error("Email verification error:", emailError);
+                await auth.signOut();
+                toast({
+                    title: "Pendaftaran Berhasil!",
+                    description: "Akun berhasil dibuat, tapi email verifikasi gagal dikirim. Cek console untuk detail atau hubungi admin.",
+                    variant: "default"
+                });
+            }
             router.push('/login');
         } catch (error: any) {
+            console.error("Registration error:", error);
             let errorMessage = "Terjadi kesalahan saat pendaftaran.";
             if (error.code === 'auth/email-already-in-use') {
                 errorMessage = 'Email ini sudah terdaftar. Silakan gunakan email lain.';

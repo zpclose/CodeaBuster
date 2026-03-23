@@ -6,8 +6,10 @@ import {
   signOut as firebaseSignOut,
   sendEmailVerification as firebaseSendEmailVerification,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
+  verifyBeforeUpdateEmail as firebaseVerifyBeforeUpdateEmail,
   type UserCredential,
   type Auth,
+  type User,
   updateProfile,
 } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp, getDoc, query, collection, where, getDocs, type Firestore } from 'firebase/firestore';
@@ -15,11 +17,18 @@ import type { FormValues as RegisterFormValues } from '@/app/(main)/register/com
 
 export async function sendVerificationEmail(user: any) {
   if (user) {
+    console.log("Sending verification email to:", user.email);
     const actionCodeSettings = {
       url: `${window.location.origin}/auth/action`,
       handleCodeInApp: true,
     };
-    await firebaseSendEmailVerification(user, actionCodeSettings);
+    try {
+      await firebaseSendEmailVerification(user, actionCodeSettings);
+      console.log("Verification email sent successfully");
+    } catch (error: any) {
+      console.error("Firebase sendEmailVerification error:", error.code, error.message);
+      throw error;
+    }
   }
 }
 
@@ -29,6 +38,14 @@ export async function sendPasswordResetEmail(auth: Auth, email: string) {
     handleCodeInApp: true,
   };
   await firebaseSendPasswordResetEmail(auth, email, actionCodeSettings);
+}
+
+export async function sendEmailChangeVerification(user: User, newEmail: string) {
+  const actionCodeSettings = {
+    url: `${window.location.origin}/auth/action`,
+    handleCodeInApp: true,
+  };
+  await firebaseVerifyBeforeUpdateEmail(user, newEmail, actionCodeSettings);
 }
 
 // This function is not directly used for registration anymore but is kept for reference.
