@@ -17,7 +17,7 @@ import { useUser } from '@/firebase';
 // T_PP Dynamic hooks
 import { useTickerItems } from '@/hooks/useTickerItems';
 import { useTeamMembers } from '@/hooks/useTeamMembers';
-import { useDynamicPageImages } from '@/hooks/useDynamicPageImages';
+import { useStrictPageImages } from '@/hooks/useStrictPageImages';
 import { useAchievements } from '@/hooks/useAchievements';
 
 const features = [
@@ -176,7 +176,7 @@ export default function Home() {
   const featuredAchievement = showcaseItems.find(a => a.isHallOfFame) || showcaseItems[0];
   const sideItems = showcaseItems.filter(a => a.id !== featuredAchievement?.id).slice(0, 2);
 
-  const { images: dynamicImages } = useDynamicPageImages('home');
+  const { images: dynamicImages } = useStrictPageImages('home');
   // -------------------------
 
   const rawTickerTexts = (tickerItems && tickerItems.length > 0 && !tickerError)
@@ -184,22 +184,26 @@ export default function Home() {
     : fallbackTickerTexts;
   const duplicatedTickerTexts = [...rawTickerTexts, ...rawTickerTexts];
 
-  const heroBackgroundUrl = dynamicImages['hero-background-main']?.imageUrl ?? '';
+  // Helper untuk get final URL (admin优先, fallback ke placeholder)
+  const getImageUrl = (slotId: string) => {
+    const img = dynamicImages[slotId];
+    return img?.adminUrl || img?.placeholderUrl || '';
+  };
+
+  const heroBackgroundUrl = getImageUrl('hero-background-main');
   const carouselUrls = [
-    dynamicImages['homepage-carousel-collaboration']?.imageUrl,
-    dynamicImages['homepage-carousel-mentorship']?.imageUrl,
+    getImageUrl('homepage-carousel-collaboration'),
+    getImageUrl('homepage-carousel-mentorship'),
   ].filter(Boolean) as string[];
-  const telkomLogoUrl = dynamicImages['telkom-university-logo-potrait']?.imageUrl ?? '';
-  const mercuBuanaLogoUrl = dynamicImages['mercu-buana-logo-square']?.imageUrl ?? '';
-  const chairpersonImageUrl = dynamicImages['management-lacienta']?.imageUrl ?? '';
-  const collageMainUrl = dynamicImages['collage-chairperson-main']?.imageUrl ?? '';
-  const collageSecondaryUrl = dynamicImages['collage-chairperson-secondary']?.imageUrl ?? '';
+  const telkomLogoUrl = getImageUrl('telkom-university-logo-potrait');
+  const mercuBuanaLogoUrl = getImageUrl('mercu-buana-logo-square');
+  const chairpersonImageUrl = getImageUrl('management-lacienta');
+  const collageMainUrl = getImageUrl('collage-chairperson-main');
+  const collageSecondaryUrl = getImageUrl('collage-chairperson-secondary');
 
-  const telkomLogo = PlaceHolderImages.find(p => p.id === 'telkom-university-logo-potrait');
-  const mercuBuanaLogo = PlaceHolderImages.find(p => p.id === 'mercu-buana-logo-square');
-
-  const effectiveTelkomLogoUrl = telkomLogoUrl || telkomLogo?.imageUrl;
-  const effectiveMercuBuanaLogoUrl = mercuBuanaLogoUrl || mercuBuanaLogo?.imageUrl;
+  // URLs sudah include fallback via getImageUrl, tidak perlu effectiveX lagi
+  const effectiveTelkomLogoUrl = telkomLogoUrl;
+  const effectiveMercuBuanaLogoUrl = mercuBuanaLogoUrl;
 
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -214,13 +218,12 @@ export default function Home() {
     }),
   };
 
-  // Carousel: use dynamic URLs, fallback to PlaceHolderImages
-  const carouselItems = carouselUrls.length > 0
-    ? carouselUrls.map((url, i) => ({ imageUrl: url, description: `Slide ${i + 1}`, imageHint: 'collaboration' }))
-    : [
-      PlaceHolderImages.find(p => p.id === 'homepage-carousel-collaboration'),
-      PlaceHolderImages.find(p => p.id === 'homepage-carousel-mentorship'),
-    ].filter(Boolean) as { imageUrl: string; description: string; imageHint: string }[];
+  // Carousel: carouselUrls sudah include fallback dari getImageUrl
+  const carouselItems = carouselUrls.map((url, i) => ({ 
+    imageUrl: url, 
+    description: `Slide ${i + 1}`, 
+    imageHint: 'collaboration' 
+  }));
 
   return (
     <div className="flex flex-col">
@@ -229,20 +232,13 @@ export default function Home() {
         ref={heroRef}
         className="relative h-screen w-full overflow-hidden"
       >
-        {heroBackgroundUrl ? (
-          <ImageWithSkeleton
-            src={heroBackgroundUrl}
-            alt="Hero background"
-            fill
-            className="object-cover"
-            priority
-          />
-        ) : (
-          (() => {
-            const heroImg = PlaceHolderImages.find(p => p.id === 'hero-background-main');
-            return heroImg ? <ImageWithSkeleton src={heroImg.imageUrl} alt="Hero background" fill className="object-cover" priority /> : null;
-          })()
-        )}
+        <ImageWithSkeleton
+          src={heroBackgroundUrl}
+          alt="Hero background"
+          fill
+          className="object-cover"
+          priority
+        />
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 container h-full flex flex-col justify-center">
           <div className="max-w-3xl">

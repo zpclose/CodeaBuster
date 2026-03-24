@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useAchievements } from '@/hooks/useAchievements';
-import { useDynamicPageImages } from '@/hooks/useDynamicPageImages';
+import { useStrictPageImages } from '@/hooks/useStrictPageImages';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import {
@@ -307,9 +307,9 @@ export default function AchievementsPage() {
     const firestore = useFirestore();
 
     // Use dynamic page images hook for all images including the logo
-    const { images: dynamicImages, isLoading: isDynamicImagesLoading } = useDynamicPageImages('global');
+    const { images: dynamicImages, isLoading: isDynamicImagesLoading } = useStrictPageImages('global');
     console.log('Dynamic Images (global):', dynamicImages);
-    const customLogoUrl = dynamicImages['impact-archive-logo']?.imageUrl;
+    const customLogoUrl = dynamicImages['impact-archive-logo']?.adminUrl || dynamicImages['impact-archive-logo']?.placeholderUrl;
     const customLogoIsCustom = dynamicImages['impact-archive-logo']?.isCustom;
     console.log('Custom Logo URL:', customLogoUrl);
 

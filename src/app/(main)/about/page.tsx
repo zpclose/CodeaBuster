@@ -2,7 +2,7 @@
 
 import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { useDynamicPageImages } from '@/hooks/useDynamicPageImages';
+import { useStrictPageImages } from '@/hooks/useStrictPageImages';
 import { Button } from '@/components/ui/button';
 import { Award, BrainCircuit, Quote, ShieldCheck, Users, Scale, ArrowDown, Lightbulb } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -41,15 +41,18 @@ export default function AboutPage() {
   const textY = useTransform(heroScrollYProgress, [0, 1], ['0%', '150%']);
 
   // Dynamic images from Firestore
-  const { images: globalImages } = useDynamicPageImages('global');
-  const { images: aboutImages } = useDynamicPageImages('about');
-  const { images: homeImages } = useDynamicPageImages('home');
+  const { images: globalImages } = useStrictPageImages('global');
+  const { images: aboutImages } = useStrictPageImages('about');
+  const { images: homeImages } = useStrictPageImages('home');
 
-  const telkomImageUrl = aboutImages['about-page-hero']?.imageUrl;
-  const rectorImageUrl = aboutImages['masterclass-speaker']?.imageUrl;
-  const aboutImageUrlBig = aboutImages['about-us-decoration']?.imageUrl;
-  const aboutImageUrlSmall = aboutImages['about-us-image']?.imageUrl;
-  const telkomLogoUrl = globalImages['telkom-university-logo-potrait']?.imageUrl;
+  // Helper untuk get final URL
+  const getUrl = (img: typeof aboutImages[string]) => img?.adminUrl || img?.placeholderUrl;
+
+  const telkomImageUrl = getUrl(aboutImages['about-page-hero']);
+  const rectorImageUrl = getUrl(aboutImages['masterclass-speaker']);
+  const aboutImageUrlBig = getUrl(aboutImages['about-us-decoration']);
+  const aboutImageUrlSmall = getUrl(aboutImages['about-us-image']);
+  const telkomLogoUrl = getUrl(globalImages['telkom-university-logo-potrait']);
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
