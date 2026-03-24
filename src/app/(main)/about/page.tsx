@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Award, BrainCircuit, Quote, ShieldCheck, Users, Scale, ArrowDown, Lightbulb } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const codebustersCode = [
   {
@@ -37,6 +39,8 @@ export default function AboutPage() {
   });
 
   const textY = useTransform(heroScrollYProgress, [0, 1], ['0%', '150%']);
+
+  const telkomLogoUrl = PlaceHolderImages.find(p => p.id === 'telkom-university-logo-potrait')?.imageUrl;
 
   // Note: AdminImage akan auto-fetch dari Firestore menggunakan slotId + pageCategory
   // Tidak perlu manual fetch dengan useStrictPageImages lagi
