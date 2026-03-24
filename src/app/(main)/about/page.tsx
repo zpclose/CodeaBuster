@@ -1,8 +1,6 @@
 'use client';
 
-import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { useStrictPageImages } from '@/hooks/useStrictPageImages';
+import { AdminImage } from '@/components/ui/admin-image';
 import { Button } from '@/components/ui/button';
 import { Award, BrainCircuit, Quote, ShieldCheck, Users, Scale, ArrowDown, Lightbulb } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -40,19 +38,8 @@ export default function AboutPage() {
 
   const textY = useTransform(heroScrollYProgress, [0, 1], ['0%', '150%']);
 
-  // Dynamic images from Firestore
-  const { images: globalImages } = useStrictPageImages('global');
-  const { images: aboutImages } = useStrictPageImages('about');
-  const { images: homeImages } = useStrictPageImages('home');
-
-  // Helper untuk get final URL
-  const getUrl = (img: typeof aboutImages[string]) => img?.adminUrl || img?.placeholderUrl;
-
-  const telkomImageUrl = getUrl(aboutImages['about-page-hero']);
-  const rectorImageUrl = getUrl(aboutImages['masterclass-speaker']);
-  const aboutImageUrlBig = getUrl(aboutImages['about-us-decoration']);
-  const aboutImageUrlSmall = getUrl(aboutImages['about-us-image']);
-  const telkomLogoUrl = getUrl(globalImages['telkom-university-logo-potrait']);
+  // Note: AdminImage akan auto-fetch dari Firestore menggunakan slotId + pageCategory
+  // Tidak perlu manual fetch dengan useStrictPageImages lagi
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -112,17 +99,16 @@ export default function AboutPage() {
         animate="visible"
         variants={heroContainerVariants}
       >
-        {telkomImageUrl && (
-          <>
-<ImageWithSkeleton 
-              src={telkomImageUrl}
-              alt="About Hero"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/30" />
-          </>
-        )}
+        {/* STRICT PRIORITY: Skeleton muncul sampai image loaded, tidak ada flash */}
+        <AdminImage 
+          slotId="about-page-hero"
+          pageCategory="about"
+          alt="About Hero"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/30" />
 
         <div className="relative z-10 w-full px-6 sm:px-8">
           <div className="grid md:grid-cols-1 gap-8 items-center">
@@ -177,14 +163,14 @@ export default function AboutPage() {
 
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="relative h-96 w-full max-w-sm mx-auto">
-              {rectorImageUrl &&
-    <ImageWithSkeleton 
-                  src={rectorImageUrl}
-                  alt="Rektor Telkom University"
-                  fill
-                  className="object-cover object-top rounded-lg shadow-2xl"
-                />
-              }
+              {/* STRICT PRIORITY: AdminImage dengan slot mode */}
+              <AdminImage 
+                slotId="masterclass-speaker"
+                pageCategory="about"
+                alt="Rektor Telkom University"
+                fill
+                className="object-cover object-top rounded-lg shadow-2xl"
+              />
             </div>
             <div className="border-l-4 border-primary pl-8">
               <Quote className="h-16 w-16 text-primary/10 mb-4" />
@@ -254,14 +240,14 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              {aboutImageUrlBig && (
-    <ImageWithSkeleton 
-                  src={aboutImageUrlBig}
-                  alt="Dekorasi Abstract"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              )}
+              {/* STRICT PRIORITY: AdminImage dengan slot mode */}
+              <AdminImage 
+                slotId="about-us-decoration"
+                pageCategory="about"
+                alt="Dekorasi Abstract"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
             </motion.div>
 
             {/* Image 2: Central Focus Overlapping Left (SMALL - About Us Photo) */}
@@ -272,14 +258,14 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              {aboutImageUrlSmall && (
-    <ImageWithSkeleton 
-                  src={aboutImageUrlSmall}
-                  alt="About Us"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              )}
+              {/* STRICT PRIORITY: AdminImage dengan slot mode */}
+              <AdminImage 
+                slotId="about-us-image"
+                pageCategory="about"
+                alt="About Us"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
             </motion.div>
 
             {/* Image 3: Telkom Logo Bottom Right */}

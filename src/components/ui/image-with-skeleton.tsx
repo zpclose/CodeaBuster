@@ -17,16 +17,32 @@ interface ImageWithSkeletonProps {
   skeletonClassName?: string;
   unoptimized?: boolean;
   objectFit?: 'cover' | 'contain' | 'fill' | 'none';
+  /**
+   * Jika true, gunakan strict mode: tidak pernah render image sampai preload selesai.
+   * Jika false (legacy), gunakan behavior lama dengan onLoad handler.
+   * @default true
+   */
+  strict?: boolean;
 }
 
 /**
- * ImageWithSkeleton - Updated with strict priority + skeleton loading
+ * ImageWithSkeleton - STRICT PRIORITY + PRELOAD
  * 
- * CHANGES:
- * - Always show skeleton first until image is fully loaded
- * - Never show fallback/placeholder image until admin image check is done
- * - Preload image before displaying
+ * BEHAVIOR:
+ * - Selalu tampilkan skeleton dulu sampai image fully preloaded
+ * - Tidak pernah show image sampai benar-benar loaded di memory
  * - Smooth fade-in transition
+ * - Tidak ada flash fallback/placeholder
+ * 
+ * CRITICAL:
+ * - strict=true (default): Skeleton muncul sampai preload selesai
+ * - strict=false: Legacy mode dengan onLoad handler (tidak recommended)
+ * 
+ * USAGE:
+ *   <ImageWithSkeleton src={dynamicUrl} alt="Description" fill strict />
+ * 
+ * LEGACY (non-strict mode - NOT RECOMMENDED):
+ *   <ImageWithSkeleton src={staticUrl} alt="Description" fill strict={false} />
  */
 export default function ImageWithSkeleton({
   src,
@@ -41,21 +57,32 @@ export default function ImageWithSkeleton({
   skeletonClassName,
   unoptimized,
   objectFit = 'cover',
+  strict = true,
 }: ImageWithSkeletonProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [displaySrc, setDisplaySrc] = useState<string | null>(null);
+  const [isPreloading, setIsPreloading] = useState(false);
 
-  // Preload logic: wait until image is actually loaded before showing
+  // Strict mode: Preload sebelum render
   useEffect(() => {
+    if (!strict) {
+      // Legacy mode: langsung set displaySrc, gunakan onLoad dari Next.js Image
+      setDisplaySrc(src || fallback);
+      setIsLoaded(false);
+      return;
+    }
+
     if (!src) {
       setDisplaySrc(null);
       setIsLoaded(false);
+      setIsPreloading(false);
       return;
     }
 
     setIsLoaded(false);
     setHasError(false);
+    setIsPreloading(true);
 
     const img = new Image();
     img.src = src;
@@ -63,6 +90,7 @@ export default function ImageWithSkeleton({
     img.onload = () => {
       setDisplaySrc(src);
       setIsLoaded(true);
+      setIsPreloading(false);
     };
 
     img.onerror = () => {
@@ -73,12 +101,15 @@ export default function ImageWithSkeleton({
         fallbackImg.onload = () => {
           setDisplaySrc(fallback);
           setIsLoaded(true);
+          setIsPreloading(false);
         };
         fallbackImg.onerror = () => {
           setHasError(true);
+          setIsPreloading(false);
         };
       } else {
         setHasError(true);
+        setIsPreloading(false);
       }
     };
 
@@ -86,9 +117,18 @@ export default function ImageWithSkeleton({
       img.onload = null;
       img.onerror = null;
     };
-  }, [src, fallback]);
+  }, [src, fallback, strict]);
 
-  const showSkeleton = !isLoaded || !displaySrc;
+  const showSkeleton = strict 
+    ? (isPreloading || !isLoaded || !displaySrc)
+    : !isLoaded;
+
+  // Legacy mode: handle onLoad dari Next.js Image
+  const handleLoad = () => {
+    if (!strict) {
+      setIsLoaded(true);
+    }
+  };
 
   return (
     <div 
@@ -112,8 +152,8 @@ export default function ImageWithSkeleton({
         </div>
       )}
 
-      {/* Image Layer - Only show when fully loaded */}
-      {displaySrc && isLoaded && !hasError && (
+      {/* Image Layer - ONLY render after preload success in strict mode */}
+      {displaySrc && (strict ? isLoaded : true) && !hasError && (
         <Image
           src={displaySrc}
           alt={alt}
@@ -123,6 +163,7 @@ export default function ImageWithSkeleton({
           priority={priority}
           sizes={sizes}
           unoptimized={unoptimized}
+          onLoad={!strict ? handleLoad : undefined}
           className={cn(
             "transition-opacity duration-300",
             objectFit === 'cover' && "object-cover",
@@ -130,7 +171,7 @@ export default function ImageWithSkeleton({
             objectFit === 'fill' && "object-fill",
             objectFit === 'none' && "object-none",
           )}
-          style={{ opacity: isLoaded ? 1 : 0 }}
+          style={{ opacity: (strict ? isLoaded : true) ? 1 : 0 }}
         />
       )}
 

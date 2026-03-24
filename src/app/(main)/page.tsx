@@ -1,6 +1,7 @@
 'use client';
 
 import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
+import { StrictImage } from '@/components/ui/strict-image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -17,7 +18,6 @@ import { useUser } from '@/firebase';
 // T_PP Dynamic hooks
 import { useTickerItems } from '@/hooks/useTickerItems';
 import { useTeamMembers } from '@/hooks/useTeamMembers';
-import { useStrictPageImages } from '@/hooks/useStrictPageImages';
 import { useAchievements } from '@/hooks/useAchievements';
 
 const features = [
@@ -81,7 +81,7 @@ function AnimatedNumber({ value, prefix = '', suffix = '', isInt = true }: { val
   return <motion.span ref={ref}>{display}</motion.span>;
 }
 
-function ChairpersonCollage({ mainImageUrl, secondaryImageUrl }: { mainImageUrl?: string, secondaryImageUrl?: string }) {
+function ChairpersonCollage({ mainImageSlot, secondaryImageSlot }: { mainImageSlot?: string, secondaryImageSlot?: string }) {
   const collageRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: collageRef,
@@ -91,17 +91,11 @@ function ChairpersonCollage({ mainImageUrl, secondaryImageUrl }: { mainImageUrl?
   const imageOneY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
   const imageTwoY = useTransform(scrollYProgress, [0, 1], ['5%', '-15%']);
 
-  const fallbackSecondary = PlaceHolderImages.find(p => p.id === 'collage-chairperson-secondary');
-  const fallbackMain = PlaceHolderImages.find(p => p.id === 'collage-chairperson-main');
-
-  const displayMain = mainImageUrl || fallbackMain?.imageUrl;
-  const displaySecondary = secondaryImageUrl || fallbackSecondary?.imageUrl;
-
   return (
     <div ref={collageRef} className="relative h-[450px] min-h-[450px]">
       <div className="absolute inset-0 bg-dots-pattern opacity-10" style={{ backgroundImage: 'radial-gradient(circle, hsl(var(--muted-foreground)/.2) 1px, transparent 1px)', backgroundSize: '10px 10px' }} />
 
-      {displaySecondary && (
+      {secondaryImageSlot && (
         <motion.div
           className="absolute bottom-0 left-0 h-2/3 w-3/5 rounded-2xl overflow-hidden shadow-lg z-10"
           style={{ y: imageTwoY }}
@@ -110,11 +104,17 @@ function ChairpersonCollage({ mainImageUrl, secondaryImageUrl }: { mainImageUrl?
           viewport={{ once: true, amount: 0.5 }}
           transition={{ type: 'spring', stiffness: 80, damping: 15 }}
         >
-          <ImageWithSkeleton src={displaySecondary} alt="Mentorship session" fill className="object-cover" />
+          <StrictImage 
+            slotId={secondaryImageSlot} 
+            pageCategory="home" 
+            alt="Mentorship session" 
+            fill 
+            className="object-cover" 
+          />
         </motion.div>
       )}
 
-      {displayMain && (
+      {mainImageSlot && (
         <motion.div
           className="absolute top-0 right-0 h-4/5 w-7/12 rounded-2xl overflow-hidden shadow-2xl border-4 border-card z-20"
           style={{ y: imageOneY }}
@@ -123,7 +123,13 @@ function ChairpersonCollage({ mainImageUrl, secondaryImageUrl }: { mainImageUrl?
           viewport={{ once: true, amount: 0.5 }}
           transition={{ type: 'spring', stiffness: 80, damping: 15, delay: 0.1 }}
         >
-          <ImageWithSkeleton src={displayMain} alt="Chairperson" fill className="object-cover" />
+          <StrictImage 
+            slotId={mainImageSlot} 
+            pageCategory="home" 
+            alt="Chairperson" 
+            fill 
+            className="object-cover" 
+          />
         </motion.div>
       )}
     </div>
@@ -176,34 +182,12 @@ export default function Home() {
   const featuredAchievement = showcaseItems.find(a => a.isHallOfFame) || showcaseItems[0];
   const sideItems = showcaseItems.filter(a => a.id !== featuredAchievement?.id).slice(0, 2);
 
-  const { images: dynamicImages } = useStrictPageImages('home');
   // -------------------------
 
   const rawTickerTexts = (tickerItems && tickerItems.length > 0 && !tickerError)
     ? tickerItems.map(item => item.text)
     : fallbackTickerTexts;
   const duplicatedTickerTexts = [...rawTickerTexts, ...rawTickerTexts];
-
-  // Helper untuk get final URL (admin优先, fallback ke placeholder)
-  const getImageUrl = (slotId: string) => {
-    const img = dynamicImages[slotId];
-    return img?.adminUrl || img?.placeholderUrl || '';
-  };
-
-  const heroBackgroundUrl = getImageUrl('hero-background-main');
-  const carouselUrls = [
-    getImageUrl('homepage-carousel-collaboration'),
-    getImageUrl('homepage-carousel-mentorship'),
-  ].filter(Boolean) as string[];
-  const telkomLogoUrl = getImageUrl('telkom-university-logo-potrait');
-  const mercuBuanaLogoUrl = getImageUrl('mercu-buana-logo-square');
-  const chairpersonImageUrl = getImageUrl('management-lacienta');
-  const collageMainUrl = getImageUrl('collage-chairperson-main');
-  const collageSecondaryUrl = getImageUrl('collage-chairperson-secondary');
-
-  // URLs sudah include fallback via getImageUrl, tidak perlu effectiveX lagi
-  const effectiveTelkomLogoUrl = telkomLogoUrl;
-  const effectiveMercuBuanaLogoUrl = mercuBuanaLogoUrl;
 
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -218,12 +202,8 @@ export default function Home() {
     }),
   };
 
-  // Carousel: carouselUrls sudah include fallback dari getImageUrl
-  const carouselItems = carouselUrls.map((url, i) => ({ 
-    imageUrl: url, 
-    description: `Slide ${i + 1}`, 
-    imageHint: 'collaboration' 
-  }));
+  // Carousel slot IDs
+  const carouselSlots = ['homepage-carousel-collaboration', 'homepage-carousel-mentorship'];
 
   return (
     <div className="flex flex-col">
@@ -232,8 +212,9 @@ export default function Home() {
         ref={heroRef}
         className="relative h-screen w-full overflow-hidden"
       >
-        <ImageWithSkeleton
-          src={heroBackgroundUrl}
+        <StrictImage
+          slotId="hero-image"
+          pageCategory="home"
           alt="Hero background"
           fill
           className="object-cover"
@@ -311,9 +292,9 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-10 flex items-center justify-start gap-4">
-              {effectiveTelkomLogoUrl && <ImageWithSkeleton src={effectiveTelkomLogoUrl} alt="Telkom University Logo" height={64} width={64} className="h-16 w-auto object-contain" />}
+              <StrictImage slotId="telkom-university-logo-potrait" pageCategory="home" alt="Telkom University Logo" height={64} width={64} className="h-16 w-auto object-contain" />
               <div className="h-12 w-px bg-border" />
-              {effectiveMercuBuanaLogoUrl && <ImageWithSkeleton src={effectiveMercuBuanaLogoUrl} alt="Universitas Mercu Buana Logo" height={64} width={64} className="h-16 w-auto object-contain" />}
+              <StrictImage slotId="mercu-buana-logo-square" pageCategory="home" alt="Universitas Mercu Buana Logo" height={64} width={64} className="h-16 w-auto object-contain" />
             </div>
             <Button size="lg" asChild className="mt-12">
               <Link href="/about">Pelajari Visi Kami</Link>
@@ -326,12 +307,13 @@ export default function Home() {
               opts={{ loop: true }}
             >
               <CarouselContent>
-                {carouselItems.map((image, index) => (
+                {carouselSlots.map((slotId, index) => (
                   <CarouselItem key={index}>
                     <div className="relative h-[600px] w-full">
-                      <ImageWithSkeleton
-                        src={image.imageUrl}
-                        alt={image.description}
+                      <StrictImage
+                        slotId={slotId}
+                        pageCategory="home"
+                        alt={`Slide ${index + 1}`}
                         fill
                         className="object-cover"
                         skeletonClassName="rounded-lg"
@@ -356,9 +338,7 @@ export default function Home() {
           <path d="M 50,50 L 150,150 M 150,50 L 50,150" stroke="currentColor" strokeWidth="0.5" fill="none" />
         </svg>
         <div className="container text-center max-w-3xl mx-auto relative z-10">
-          {effectiveTelkomLogoUrl && (
-            <ImageWithSkeleton src={effectiveTelkomLogoUrl} alt="Telkom University Logo" width={80} height={80} className="mx-auto mb-6 h-20 w-auto filter-white" />
-          )}
+          <StrictImage slotId="telkom-university-logo-potrait" pageCategory="home" alt="Telkom University Logo" width={80} height={80} className="mx-auto mb-6 h-20 w-auto filter-white" />
           <h2 className="font-headline text-3xl md:text-4xl font-bold">
             The Telkom University Advantage
           </h2>
@@ -371,7 +351,7 @@ export default function Home() {
       {/* Message from Chairperson Section */}
       <section className="py-20 md:py-24 bg-card">
         <div className="container grid md:grid-cols-2 gap-12 items-center">
-          <ChairpersonCollage mainImageUrl={collageMainUrl} secondaryImageUrl={collageSecondaryUrl} />
+          <ChairpersonCollage mainImageSlot="collage-chairperson-main" secondaryImageSlot="collage-chairperson-secondary" />
           <div className="space-y-6">
             <p className="font-semibold text-primary tracking-widest text-sm underline">SINCE 2024</p>
             <div className="flex items-center gap-4">
@@ -389,11 +369,9 @@ export default function Home() {
               <p>Terima kasih kepada seluruh anggota yang telah ikut berkontribusi.</p>
             </div>
             <div className="flex items-center gap-4 pt-4">
-              {chairpersonImageUrl && (
-                <div className="relative h-14 w-14 rounded-full overflow-hidden border-2 border-primary/20 shadow-sm">
-                  <ImageWithSkeleton src={chairpersonImageUrl} alt="Mochamad Kevin K." fill className="object-cover object-top" skeletonClassName="rounded-full" />
-                </div>
-              )}
+              <div className="relative h-14 w-14 rounded-full overflow-hidden border-2 border-primary/20 shadow-sm">
+                <StrictImage slotId="management-lacienta" pageCategory="home" alt="Mochamad Kevin K." fill className="object-cover object-top" skeletonClassName="rounded-full" />
+              </div>
               <div>
                 <p className="font-semibold">Mochamad Kevin K.</p>
                 <p className="text-sm text-primary">Chairperson, Tel-Nect</p>
