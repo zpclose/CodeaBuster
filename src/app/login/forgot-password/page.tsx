@@ -136,10 +136,6 @@ export default function ForgotPasswordPage() {
                   <p className="text-sm text-muted-foreground">
                     Kami telah mengirim tautan reset password ke email Anda.
                   </p>
-                  <Button onClick={() => router.push('/login')} className="w-full">
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Kembali ke Login
-                  </Button>
                 </div>
               ) : (
                 <Form {...form}>

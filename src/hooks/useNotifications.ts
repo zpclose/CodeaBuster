@@ -11,6 +11,8 @@ import { useFirestore, useUser } from '@/firebase';
 import type { Notification } from '@/types/notification';
 import { markNotificationAsRead, markAllNotificationsAsRead } from '@/lib/notification-utils';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 export function useNotifications() {
     const firestore = useFirestore();
     const { user } = useUser();
@@ -25,7 +27,7 @@ export function useNotifications() {
         }
 
         setIsLoading(true);
-        console.log('[useNotifications] Setting up listener for user:', user.uid);
+        if (isDev) console.log('[useNotifications] Setting up listener for user:', user.uid);
 
         // Real-time listener untuk notifications user (without orderBy to avoid index requirement)
         const notificationsQuery = query(
@@ -36,7 +38,7 @@ export function useNotifications() {
         const unsubscribe: Unsubscribe = onSnapshot(
             notificationsQuery,
             (snapshot) => {
-                console.log('[useNotifications] Received snapshot, docs count:', snapshot.docs.length);
+                if (isDev) console.log('[useNotifications] Received snapshot, docs count:', snapshot.docs.length);
                 const notificationsList: Notification[] = snapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
@@ -49,12 +51,11 @@ export function useNotifications() {
                     return bTime - aTime;
                 });
 
-                console.log('[useNotifications] Notifications:', notificationsList);
                 setNotifications(notificationsList);
                 setIsLoading(false);
             },
             (error) => {
-                console.error('[useNotifications] Error fetching notifications:', error);
+                if (isDev) console.error('[useNotifications] Error fetching notifications:', error);
                 setIsLoading(false);
             }
         );

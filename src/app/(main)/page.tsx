@@ -213,7 +213,7 @@ export default function Home() {
         className="relative h-screen w-full overflow-hidden"
       >
         <StrictImage
-          slotId="hero-image"
+          slotId="hero-background-main"
           pageCategory="home"
           alt="Hero background"
           fill
@@ -545,7 +545,7 @@ export default function Home() {
                 const placeholderImage = PlaceHolderImages.find(p => p.id === member.imageId);
                 const imageUrl = member.imageUrl || placeholderImage?.imageUrl;
                 const isTelkom = member.university?.toLowerCase().includes('telkom');
-                const logoUrl = isTelkom ? effectiveTelkomLogoUrl : effectiveMercuBuanaLogoUrl;
+                const logoSlotId = isTelkom ? 'telkom-university-logo-potrait' : 'mercu-buana-logo-square';
 
                 return (
                   <div key={member.id} className="group relative flex flex-col">
@@ -558,11 +558,9 @@ export default function Home() {
                           className="object-cover object-top grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
                         />
                       )}
-                      {logoUrl && (
-                        <div className="absolute top-6 left-6 h-10 w-10 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center p-2 border border-white/10">
-                          <ImageWithSkeleton src={logoUrl} alt="University Logo" width={24} height={24} className="object-contain filter-white opacity-80" />
-                        </div>
-                      )}
+                      <div className="absolute top-6 left-6 h-10 w-10 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center p-2 border border-white/10">
+                        <StrictImage slotId={logoSlotId} pageCategory="home" alt="University Logo" width={24} height={24} className="object-contain filter-white opacity-80" />
+                      </div>
                       <div className="absolute inset-y-0 right-0 w-12 bg-black/40 backdrop-blur-xl translate-x-full group-hover:translate-x-0 transition-transform duration-300 flex flex-col items-center justify-center gap-6 border-l border-white/10">
                         <a href={member.socials?.linkedin && member.socials.linkedin !== '#' ? member.socials.linkedin : '#'} target="_blank" rel="noopener noreferrer" className={`transition-colors ${member.socials?.linkedin && member.socials.linkedin !== '#' ? 'text-white/70 hover:text-white' : 'text-white'}`}>
                           <Linkedin className="h-5 w-5" />

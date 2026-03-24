@@ -3,6 +3,8 @@ import { collection, query, where, onSnapshot, Unsubscribe } from 'firebase/fire
 import { useFirestore, useUser } from '@/firebase';
 import type { ProjectProposal, StatusHistoryItem } from '@/types/project';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 export interface ProposalNotification {
     id: string; // proposalId
     proposalName: string;
@@ -38,7 +40,7 @@ export function useProposalNotifications() {
         }
 
         setIsLoading(true);
-        console.log('[useProposalNotifications] Setting up listener for user:', user.uid);
+        if (isDev) console.log('[useProposalNotifications] Setting up listener for user:', user.uid);
 
         // Fetch user's proposals
         const proposalsQuery = query(
@@ -49,7 +51,7 @@ export function useProposalNotifications() {
         const unsubscribe: Unsubscribe = onSnapshot(
             proposalsQuery,
             (snapshot) => {
-                console.log('[useProposalNotifications] Received proposals:', snapshot.docs.length);
+                if (isDev) console.log('[useProposalNotifications] Received proposals:', snapshot.docs.length);
                 const proposalsList: ProjectProposal[] = snapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
@@ -59,7 +61,7 @@ export function useProposalNotifications() {
                 setIsLoading(false);
             },
             (error) => {
-                console.error('[useProposalNotifications] Error fetching proposals:', error);
+                if (isDev) console.error('[useProposalNotifications] Error fetching proposals:', error);
                 setIsLoading(false);
             }
         );
@@ -100,7 +102,7 @@ export function useProposalNotifications() {
             return bTime - aTime;
         });
 
-        console.log('[useProposalNotifications] Generated notifications:', notifs.length);
+        if (isDev) console.log('[useProposalNotifications] Generated notifications:', notifs.length);
         return notifs;
     }, [proposals]);
 

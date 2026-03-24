@@ -27,16 +27,16 @@ export interface UploadProgress {
  * @param onProgress - Optional callback for upload progress
  * @returns Download URL of uploaded image
  */
+const isDev = process.env.NODE_ENV === 'development';
+
 export async function uploadImage(
     file: File,
     path: string,
     onProgress?: (progress: UploadProgress) => void
 ): Promise<string> {
     const storage = getStorageInstance();
-    console.log('  Starting upload:', { file: file.name, path, storage: !!storage });
 
     if (!storage) {
-        console.error('❌ Firebase Storage not initialized');
         throw new Error('Firebase Storage not initialized');
     }
 
@@ -52,26 +52,17 @@ export async function uploadImage(
     }
 
     const fullPath = `images/${path}`;
-    console.log('📁 Storage path:', fullPath);
-    console.log('🔍 Storage instance:', storage);
-
     const storageRef = ref(storage, fullPath);
-    console.log('✅ Storage ref created:', storageRef);
-
     const uploadTask = uploadBytesResumable(storageRef, file);
-    console.log('📤 Upload task created:', { fullPath, fileSize: file.size });
 
     return new Promise((resolve, reject) => {
         uploadTask.on(
             'state_changed',
             (snapshot: UploadTaskSnapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('📊 Upload progress:', {
-                    bytesTransferred: snapshot.bytesTransferred,
-                    totalBytes: snapshot.totalBytes,
-                    progress: Math.round(progress),
-                    state: snapshot.state
-                });
+                if (isDev) {
+                    console.log('📊 Upload progress:', Math.round(progress) + '%');
+                }
                 if (onProgress) {
                     onProgress({
                         bytesTransferred: snapshot.bytesTransferred,
@@ -81,12 +72,9 @@ export async function uploadImage(
                 }
             },
             (error) => {
-                console.error('❌ Upload error:', error);
-                console.error('Error details:', {
-                    code: error.code,
-                    message: error.message,
-                    serverResponse: error.serverResponse
-                });
+                if (isDev) {
+                    console.error('Upload error:', error.code);
+                }
                 reject(error);
             },
             async () => {
@@ -95,11 +83,9 @@ export async function uploadImage(
                     // Verify the URL is accessible before resolving
                     const img = new Image();
                     img.onload = () => {
-                        console.log('✅ Image URL verified and accessible');
                         resolve(downloadURL);
                     };
                     img.onerror = () => {
-                        console.warn('⚠️ Image URL not immediately accessible, but upload was successful');
                         resolve(downloadURL); // Still resolve since upload was successful
                     };
                     img.src = downloadURL;
@@ -133,12 +119,9 @@ export async function deleteImage(url: string): Promise<void> {
 
         const storageRef = ref(storage, path);
         await deleteObject(storageRef);
-        console.log('✅ Image deleted successfully:', path);
     } catch (error) {
-        console.error('Delete error:', error);
         // Check if it's a "not found" error and handle gracefully
         if (error instanceof Error && error.message.includes('object-not-found')) {
-            console.warn('⚠️ Image not found in storage, continuing...');
             return; // Don't throw for not found errors
         }
         throw error;

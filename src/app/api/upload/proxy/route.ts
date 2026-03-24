@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -28,9 +30,9 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Catbox API Error:", errorText);
+      if (isDev) console.error("Catbox API Error:", errorText);
       return NextResponse.json(
-        { error: "Failed to upload to external service.", details: errorText },
+        { error: "Failed to upload to external service." },
         { status: response.status }
       );
     }
@@ -39,7 +41,7 @@ export async function POST(request: Request) {
 
     if (!url.startsWith("http")) {
         return NextResponse.json(
-            { error: "Invalid response from Catbox", details: url },
+            { error: "Invalid response from external service" },
             { status: 500 }
         );
     }
@@ -47,12 +49,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ url });
 
   } catch (error: any) {
-    console.error("Internal proxy error:", error);
+    if (isDev) console.error("Internal proxy error:", error);
     const errorMessage = error.name === 'AbortError' 
       ? "Request timed out. The external service may be slow or unreachable."
-      : error.message;
+      : "An internal server error occurred.";
     return NextResponse.json(
-      { error: "An internal server error occurred.", details: errorMessage },
+      { error: errorMessage },
       { status: 500 }
     );
   }

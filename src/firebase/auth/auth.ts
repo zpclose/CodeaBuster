@@ -15,18 +15,17 @@ import {
 import { doc, setDoc, serverTimestamp, getDoc, query, collection, where, getDocs, type Firestore } from 'firebase/firestore';
 import type { FormValues as RegisterFormValues } from '@/app/(main)/register/components/RegisterForm';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 export async function sendVerificationEmail(user: any) {
   if (user) {
-    console.log("Sending verification email to:", user.email);
     const actionCodeSettings = {
       url: `${window.location.origin}/auth/action`,
       handleCodeInApp: false,
     };
     try {
       await firebaseSendEmailVerification(user, actionCodeSettings);
-      console.log("Verification email sent successfully");
     } catch (error: any) {
-      console.error("Firebase sendEmailVerification error:", error.code, error.message);
       throw error;
     }
   }
@@ -55,7 +54,6 @@ export async function submitRegistration(
   data: any // Keeping this generic for now
 ): Promise<void> {
   // This can be used for a separate admin-reviewed registration process if needed later.
-  console.log("Submitting registration for admin review:", data);
 }
 
 export async function signIn(auth: Auth, email: string, pass: string) {

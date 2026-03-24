@@ -308,10 +308,8 @@ export default function AchievementsPage() {
 
     // Use dynamic page images hook for all images including the logo
     const { images: dynamicImages, isLoading: isDynamicImagesLoading } = useStrictPageImages('global');
-    console.log('Dynamic Images (global):', dynamicImages);
     const customLogoUrl = dynamicImages['impact-archive-logo']?.adminUrl || dynamicImages['impact-archive-logo']?.placeholderUrl;
     const customLogoIsCustom = dynamicImages['impact-archive-logo']?.isCustom;
-    console.log('Custom Logo URL:', customLogoUrl);
 
     const { achievements, isLoading } = useAchievements({ activeOnly: true });
     const { achievements: hallOfFameAchievements, isLoading: isLoadingHOF } = useAchievements({ hallOfFameOnly: true });

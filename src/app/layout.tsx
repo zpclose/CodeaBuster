@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import './globals.css';
 import { DynamicFirebaseProvider } from '@/firebase/dynamic-provider';
 import { DynamicThemeProvider } from '@/components/DynamicThemeProvider';
+import { CookieConsentBanner } from '@/components/ui/cookie-consent';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.codebustersconnect.com'),
@@ -82,6 +83,7 @@ export default function RootLayout({
         <DynamicFirebaseProvider>
           <DynamicThemeProvider>
             {children}
+            <CookieConsentBanner />
             <Toaster />
           </DynamicThemeProvider>
         </DynamicFirebaseProvider>

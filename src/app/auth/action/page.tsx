@@ -13,8 +13,6 @@ function AuthActionContent() {
     const oobCode = searchParams.get('oobCode');
     const email = searchParams.get('email');
 
-    console.log('Auth action:', { mode, oobCode, email });
-
     if (!oobCode || !mode) {
       router.replace('/login');
       return;

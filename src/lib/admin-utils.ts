@@ -51,7 +51,6 @@ async function seedOwnerIfNeeded(firestore: Firestore): Promise<void> {
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
         });
-        console.log('[ADMIN] Owner account seeded:', OWNER_EMAIL);
     }
 }
 

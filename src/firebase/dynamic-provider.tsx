@@ -55,10 +55,11 @@ export function DynamicFirebaseProvider({ children }: DynamicFirebaseProviderPro
                     }
                 }
             } catch (err) {
-                console.warn('[DynamicFirebaseProvider] Favicon sync failed:', err);
+                console.warn('[DynamicFirebaseProvider] Favicon sync failed (offline?):', err);
             }
         };
 
+        // Don't fail the app if fetch fails
         fetchLogo();
     }, [firebaseServices.firestore]);
 

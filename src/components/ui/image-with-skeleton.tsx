@@ -23,6 +23,10 @@ interface ImageWithSkeletonProps {
    * @default true
    */
   strict?: boolean;
+  /**
+   * Image ID untuk menggunakan cache preload (opsional)
+   */
+  imageId?: string;
 }
 
 /**
@@ -58,11 +62,23 @@ export default function ImageWithSkeleton({
   unoptimized,
   objectFit = 'cover',
   strict = true,
+  imageId,
 }: ImageWithSkeletonProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [displaySrc, setDisplaySrc] = useState<string | null>(null);
   const [isPreloading, setIsPreloading] = useState(false);
+
+  const getCachedUrl = (id: string): string | null => {
+    if (typeof window === 'undefined') return null;
+    try {
+      const stored = localStorage.getItem('preload-image-cache');
+      if (!stored) return null;
+      const data = JSON.parse(stored);
+      const img = data.images?.find((i: any) => i.id === id);
+      return img?.url || null;
+    } catch { return null; }
+  };
 
   // Strict mode: Preload sebelum render
   useEffect(() => {
@@ -71,6 +87,17 @@ export default function ImageWithSkeleton({
       setDisplaySrc(src || fallback);
       setIsLoaded(false);
       return;
+    }
+
+    // Check cache first if imageId provided
+    if (imageId) {
+      const cachedUrl = getCachedUrl(imageId);
+      if (cachedUrl) {
+        setDisplaySrc(cachedUrl);
+        setIsLoaded(true);
+        setIsPreloading(false);
+        return;
+      }
     }
 
     if (!src) {
@@ -84,7 +111,7 @@ export default function ImageWithSkeleton({
     setHasError(false);
     setIsPreloading(true);
 
-    const img = new Image();
+    const img = new (window.Image as any)();
     img.src = src;
 
     img.onload = () => {
@@ -96,7 +123,7 @@ export default function ImageWithSkeleton({
     img.onerror = () => {
       // Try fallback if main src fails
       if (fallback && src !== fallback) {
-        const fallbackImg = new Image();
+        const fallbackImg = new (window.Image as any)();
         fallbackImg.src = fallback;
         fallbackImg.onload = () => {
           setDisplaySrc(fallback);
