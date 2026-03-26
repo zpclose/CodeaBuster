@@ -8,6 +8,8 @@ import { useRef } from 'react';
 import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { StrictImage } from '@/components/ui/strict-image';
+import Image from 'next/image';
+import { useDynamicPageImages } from '@/hooks/useDynamicPageImages';
 
 const codebustersCode = [
   {
@@ -40,6 +42,10 @@ export default function AboutPage() {
   });
 
   const textY = useTransform(heroScrollYProgress, [0, 1], ['0%', '150%']);
+
+  const { images: aboutImages } = useDynamicPageImages('about');
+  const rectorPlaceholder = PlaceHolderImages.find(p => p.id === 'masterclass-speaker')?.imageUrl;
+  const rectorImageUrl = aboutImages['masterclass-speaker']?.imageUrl || rectorPlaceholder;
 
   const telkomLogoUrl = PlaceHolderImages.find(p => p.id === 'telkom-university-logo-potrait')?.imageUrl;
 
@@ -166,23 +172,24 @@ export default function AboutPage() {
         <div className="container">
           <h2 className="font-headline text-4xl font-bold text-center mb-16">Rektor</h2>
 
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="relative h-96 w-full max-w-sm mx-auto">
-              <AdminImage 
-                slotId="masterclass-speaker"
-                pageCategory="about"
-                alt="Rektor Telkom University"
-                fill
-                className="object-cover object-top rounded-2xl shadow-2xl"
-              />
+              {rectorImageUrl &&
+                <Image
+                  src={rectorImageUrl}
+                  alt="Rektor Telkom University"
+                  fill
+                  className="object-cover object-top rounded-lg shadow-2xl"
+                  unoptimized
+                />
+              }
             </div>
-            
-            <div className="border-l-4 border-primary pl-8 lg:pl-12">
-              <Quote className="h-16 w-16 text-primary/20 mb-6 rotate-180" />
-              <blockquote className="text-xl md:text-2xl font-serif italic text-foreground/90 leading-relaxed">
+            <div className="border-l-4 border-primary pl-8">
+              <Quote className="h-16 w-16 text-primary/10 mb-4" />
+              <blockquote className="text-2xl font-serif italic text-foreground/90">
                 "Codebusters adalah bukti nyata komitmen Telkom University dalam mencetak talenta digital berkelas dunia. Melalui kolaborasi strategis dan kurikulum yang relevan, kami membangun fondasi bagi para pemimpin teknologi masa depan Indonesia."
               </blockquote>
-              <div className="mt-8">
+              <div className="mt-6">
                 <p className="font-bold text-lg font-headline text-foreground">Prof. Dr. Suyanto, S.T., M.Sc.</p>
                 <p className="text-sm text-muted-foreground font-semibold">Rektor, Telkom University</p>
               </div>
