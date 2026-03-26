@@ -1,0 +1,21 @@
+{
+  "name": "Codebusters - Komunitas Teknologi Mahasiswa",
+  "short_name": "Codebusters",
+  "description": "Komunitas teknologi mahasiswa untuk belajar coding, membangun project, dan networking di bidang teknologi.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon-cb.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-cb.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

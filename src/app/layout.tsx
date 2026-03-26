@@ -26,6 +26,8 @@ export const metadata: Metadata = {
 
   authors: [{ name: 'Codebusters Community' }],
   creator: 'Codebusters',
+  applicationName: 'Codebusters',
+  publisher: 'Codebusters',
 
   robots: {
     index: true,
@@ -34,6 +36,19 @@ export const metadata: Metadata = {
 
   verification: {
     google: 'yMC8fm8ExW5XEoG5rbPdRzpC1LXgvYx9WJvG_teEmyQ',
+  },
+
+  icons: {
+    icon: [
+      { url: '/favicon-cb.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-cb.png', type: 'image/png', sizes: '192x192' },
+    ],
+    shortcut: '/favicon-cb.png',
+    apple: '/favicon-cb.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/favicon-cb.png',
+    },
   },
 
   openGraph: {
@@ -53,6 +68,15 @@ export const metadata: Metadata = {
     ],
   },
 
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Codebusters | Komunitas Teknologi Mahasiswa',
+    description: 'Komunitas teknologi mahasiswa untuk belajar coding dan teknologi.',
+    images: ['/api/og'],
+    creator: '@codebusters',
+    site: '@codebusters',
+  },
+
 };
 
 export default function RootLayout({
@@ -61,8 +85,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <head>
+        <link rel="manifest" href="/manifest.json" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet" />
