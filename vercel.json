@@ -1,4 +1,5 @@
 {
+  "project": "cbdeploy",
   "build": {
     "use": "next"
   },
