@@ -53,18 +53,6 @@ export const metadata: Metadata = {
     ],
   },
 
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Codebusters | Komunitas Teknologi Mahasiswa',
-    description: 'Komunitas teknologi mahasiswa untuk belajar coding dan teknologi.',
-    site: '@codebusters',
-    creator: '@codebusters',
-    images: ['/api/og'],
-  },
-
-  icons: {
-    icon: '/favicon.ico',
-  },
 };
 
 export default function RootLayout({

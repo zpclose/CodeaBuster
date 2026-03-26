@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { StrictImage } from '@/components/ui/strict-image';
 
 const codebustersCode = [
   {
@@ -165,23 +166,23 @@ export default function AboutPage() {
         <div className="container">
           <h2 className="font-headline text-4xl font-bold text-center mb-16">Rektor</h2>
 
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 md:gap-16 items-center">
             <div className="relative h-96 w-full max-w-sm mx-auto">
-              {/* STRICT PRIORITY: AdminImage dengan slot mode */}
               <AdminImage 
                 slotId="masterclass-speaker"
                 pageCategory="about"
                 alt="Rektor Telkom University"
                 fill
-                className="object-cover object-top rounded-lg shadow-2xl"
+                className="object-cover object-top rounded-2xl shadow-2xl"
               />
             </div>
-            <div className="border-l-4 border-primary pl-8">
-              <Quote className="h-16 w-16 text-primary/10 mb-4" />
-              <blockquote className="text-2xl font-serif italic text-foreground/90">
+            
+            <div className="border-l-4 border-primary pl-8 lg:pl-12">
+              <Quote className="h-16 w-16 text-primary/20 mb-6 rotate-180" />
+              <blockquote className="text-xl md:text-2xl font-serif italic text-foreground/90 leading-relaxed">
                 "Codebusters adalah bukti nyata komitmen Telkom University dalam mencetak talenta digital berkelas dunia. Melalui kolaborasi strategis dan kurikulum yang relevan, kami membangun fondasi bagi para pemimpin teknologi masa depan Indonesia."
               </blockquote>
-              <div className="mt-6">
+              <div className="mt-8">
                 <p className="font-bold text-lg font-headline text-foreground">Prof. Dr. Suyanto, S.T., M.Sc.</p>
                 <p className="text-sm text-muted-foreground font-semibold">Rektor, Telkom University</p>
               </div>
@@ -274,20 +275,22 @@ export default function AboutPage() {
 
             {/* Image 3: Telkom Logo Bottom Right */}
             <motion.div
-              className="absolute bottom-0 right-[10%] w-[45%] h-[250px] overflow-hidden z-30 p-8 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] dark:bg-black/30 dark:border-white/10"
+              className="absolute bottom-0 right-[10%] w-[45%] h-[250px] z-30 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] dark:bg-black/30 dark:border-white/10"
               initial={{ opacity: 0, y: 100, scale: 0.8 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
             >
-              {telkomLogoUrl && (
-    <ImageWithSkeleton 
-                  src={telkomLogoUrl}
-                  alt="Telkom Logo"
+              {/* Inner container: inset-4 to give visual padding so logo doesn't bleed to edges */}
+              <div style={{ position: 'absolute', inset: '32px' }}>
+                <StrictImage
+                  slotId="telkom-university-logo-potrait"
+                  pageCategory="global"
+                  alt="Telkom University Logo"
                   fill
-                  className="object-contain p-8"
+                  objectFit="contain"
                 />
-              )}
+              </div>
             </motion.div>
           </div>
 

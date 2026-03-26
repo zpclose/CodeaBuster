@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import ImageWithSkeleton from '@/components/ui/image-with-skeleton';
 import { StrictImage } from '@/components/ui/strict-image';
 import Link from 'next/link';
@@ -19,6 +20,7 @@ import { useUser } from '@/firebase';
 import { useTickerItems } from '@/hooks/useTickerItems';
 import { useTeamMembers } from '@/hooks/useTeamMembers';
 import { useAchievements } from '@/hooks/useAchievements';
+import { useDynamicPageImages } from '@/hooks/useDynamicPageImages';
 
 const features = [
   {
@@ -182,6 +184,13 @@ export default function Home() {
   const featuredAchievement = showcaseItems.find(a => a.isHallOfFame) || showcaseItems[0];
   const sideItems = showcaseItems.filter(a => a.id !== featuredAchievement?.id).slice(0, 2);
 
+  const { images: globalImages } = useDynamicPageImages('global');
+  
+  const telkomLogo = PlaceHolderImages.find(p => p.id === 'telkom-university-logo-potrait');
+  const mercuBuanaLogo = PlaceHolderImages.find(p => p.id === 'mercu-buana-logo-square');
+  const effectiveTelkomLogoUrl = globalImages['telkom-university-logo-potrait']?.imageUrl || telkomLogo?.imageUrl;
+  const effectiveMercuBuanaLogoUrl = globalImages['mercu-buana-logo-square']?.imageUrl || mercuBuanaLogo?.imageUrl;
+
   // -------------------------
 
   const rawTickerTexts = (tickerItems && tickerItems.length > 0 && !tickerError)
@@ -292,9 +301,13 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-10 flex items-center justify-start gap-4">
-              <StrictImage slotId="telkom-university-logo-potrait" pageCategory="home" alt="Telkom University Logo" height={64} width={64} className="h-16 w-auto object-contain" />
-              <div className="h-12 w-px bg-border" />
-              <StrictImage slotId="mercu-buana-logo-square" pageCategory="home" alt="Universitas Mercu Buana Logo" height={64} width={64} className="h-16 w-auto object-contain" />
+              {effectiveTelkomLogoUrl && (
+                <Image src={effectiveTelkomLogoUrl} alt="Telkom University Logo" width={200} height={64} className="h-16 w-auto object-contain" unoptimized />
+              )}
+              <div className="h-12 w-px bg-border shrink-0" />
+              {effectiveMercuBuanaLogoUrl && (
+                <Image src={effectiveMercuBuanaLogoUrl} alt="Universitas Mercu Buana Logo" width={200} height={64} className="h-16 w-auto object-contain" unoptimized />
+              )}
             </div>
             <Button size="lg" asChild className="mt-12">
               <Link href="/about">Pelajari Visi Kami</Link>
@@ -338,7 +351,9 @@ export default function Home() {
           <path d="M 50,50 L 150,150 M 150,50 L 50,150" stroke="currentColor" strokeWidth="0.5" fill="none" />
         </svg>
         <div className="container text-center max-w-3xl mx-auto relative z-10">
-          <StrictImage slotId="telkom-university-logo-potrait" pageCategory="home" alt="Telkom University Logo" width={80} height={80} className="mx-auto mb-6 h-20 w-auto filter-white" />
+          {effectiveTelkomLogoUrl && (
+            <Image src={effectiveTelkomLogoUrl} alt="Telkom University Logo" width={200} height={80} className="mx-auto mb-6 h-20 w-auto filter-white object-contain" unoptimized />
+          )}
           <h2 className="font-headline text-3xl md:text-4xl font-bold">
             The Telkom University Advantage
           </h2>
@@ -558,8 +573,14 @@ export default function Home() {
                           className="object-cover object-top grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
                         />
                       )}
-                      <div className="absolute top-6 left-6 h-10 w-10 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center p-2 border border-white/10">
-                        <StrictImage slotId={logoSlotId} pageCategory="home" alt="University Logo" width={24} height={24} className="object-contain filter-white opacity-80" />
+                      <div className="absolute top-6 left-6 h-12 w-12 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center p-2.5 border border-white/10 shrink-0">
+                        <div className="relative w-full h-full filter-white opacity-80">
+                          {isTelkom ? (
+                            effectiveTelkomLogoUrl && <Image src={effectiveTelkomLogoUrl} fill alt="Telkom Logo" className="object-contain" unoptimized />
+                          ) : (
+                            effectiveMercuBuanaLogoUrl && <Image src={effectiveMercuBuanaLogoUrl} fill alt="Mercu Buana Logo" className="object-contain" unoptimized />
+                          )}
+                        </div>
                       </div>
                       <div className="absolute inset-y-0 right-0 w-12 bg-black/40 backdrop-blur-xl translate-x-full group-hover:translate-x-0 transition-transform duration-300 flex flex-col items-center justify-center gap-6 border-l border-white/10">
                         <a href={member.socials?.linkedin && member.socials.linkedin !== '#' ? member.socials.linkedin : '#'} target="_blank" rel="noopener noreferrer" className={`transition-colors ${member.socials?.linkedin && member.socials.linkedin !== '#' ? 'text-white/70 hover:text-white' : 'text-white'}`}>

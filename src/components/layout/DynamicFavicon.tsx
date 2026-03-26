@@ -6,7 +6,7 @@ interface DynamicFaviconProps {
   iconUrl?: string;
 }
 
-export default function DynamicFavicon({ iconUrl = '/favicon-cb.png' }: DynamicFaviconProps) {
+export default function DynamicFavicon({ iconUrl = '/favicon.ico' }: DynamicFaviconProps) {
   useEffect(() => {
     const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
     if (link) {
