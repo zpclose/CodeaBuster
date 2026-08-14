@@ -1,137 +1,106 @@
-import {
-    ref,
-    uploadBytesResumable,
-    getDownloadURL,
-    deleteObject,
-    getStorage,
-    UploadTaskSnapshot,
-} from 'firebase/storage';
-import { getStorageApp } from '@/firebase';
-
-// Get storage instance from the dedicated storage Firebase project
-function getStorageInstance() {
-    const app = getStorageApp();
-    return app ? getStorage(app) : null;
-}
-
 export interface UploadProgress {
     bytesTransferred: number;
     totalBytes: number;
     progress: number; // 0-100
 }
 
-/**
- * Upload an image to Firebase Storage
- * @param file - File to upload
- * @param path - Storage path (e.g., 'team-members/member-123/profile.jpg')
- * @param onProgress - Optional callback for upload progress
- * @returns Download URL of uploaded image
- */
 const isDev = process.env.NODE_ENV === 'development';
 
+// R2 upload via API route (client-side tidak bisa akses R2 langsung)
+async function uploadToR2(file: File, path: string, onProgress?: (progress: UploadProgress) => void): Promise<string> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('path', path);
+
+    // Simulate progress start
+    onProgress?.({ bytesTransferred: 0, totalBytes: file.size, progress: 0 });
+
+    const res = await fetch('/api/storage/upload', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: res.statusText }));
+        throw new Error(err.error || 'Upload gagal');
+    }
+
+    const { url } = await res.json();
+
+    // Simulate progress complete
+    onProgress?.({ bytesTransferred: file.size, totalBytes: file.size, progress: 100 });
+
+    if (isDev) console.log('Upload R2 berhasil:', url);
+    return url;
+}
+
+/**
+ * Upload file (gambar/video) ke Cloudflare R2
+ * @param file - File yang akan diupload
+ * @param path - Storage path (e.g., 'team-members/member-123/profile.jpg')
+ * @param onProgress - Callback progress upload (opsional)
+ * @returns Public URL file di R2
+ */
 export async function uploadImage(
     file: File,
     path: string,
     onProgress?: (progress: UploadProgress) => void
 ): Promise<string> {
-    const storage = getStorageInstance();
-
-    if (!storage) {
-        throw new Error('Firebase Storage not initialized');
+    // Validasi tipe file
+    if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+        throw new Error('File harus berupa gambar atau video');
     }
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-        throw new Error('File must be an image');
-    }
-
-    // Validate file size (max 5MB)
-    const maxSize = 5 * 1024 * 1024; // 5MB
+    // Validasi ukuran (max 10MB)
+    const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-        throw new Error('Image size must be less than 5MB');
+        throw new Error('Ukuran file maksimal 10MB');
     }
 
     const fullPath = `images/${path}`;
-    const storageRef = ref(storage, fullPath);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    return new Promise((resolve, reject) => {
-        uploadTask.on(
-            'state_changed',
-            (snapshot: UploadTaskSnapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                if (isDev) {
-                    console.log('📊 Upload progress:', Math.round(progress) + '%');
-                }
-                if (onProgress) {
-                    onProgress({
-                        bytesTransferred: snapshot.bytesTransferred,
-                        totalBytes: snapshot.totalBytes,
-                        progress,
-                    });
-                }
-            },
-            (error) => {
-                if (isDev) {
-                    console.error('Upload error:', error.code);
-                }
-                reject(error);
-            },
-            async () => {
-                try {
-                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                    // Verify the URL is accessible before resolving
-                    const img = new Image();
-                    img.onload = () => {
-                        resolve(downloadURL);
-                    };
-                    img.onerror = () => {
-                        resolve(downloadURL); // Still resolve since upload was successful
-                    };
-                    img.src = downloadURL;
-                } catch (error) {
-                    reject(error);
-                }
-            }
-        );
-    });
+    return uploadToR2(file, fullPath, onProgress);
 }
 
 /**
- * Delete an image from Firebase Storage
- * @param url - Download URL or storage path of the image
+ * Hapus file dari Cloudflare R2
+ * @param url - Public URL atau storage path file
  */
 export async function deleteImage(url: string): Promise<void> {
-    const storage = getStorageInstance();
-    if (!storage) {
-        throw new Error('Firebase Storage not initialized');
-    }
-
     try {
-        // Extract path from URL if it's a download URL
+        // Ekstrak path dari R2 URL
         let path = url;
-        if (url.includes('firebasestorage.googleapis.com')) {
-            const urlParts = url.split('/o/');
-            if (urlParts.length > 1) {
-                path = decodeURIComponent(urlParts[1].split('?')[0]);
-            }
+
+        const r2BaseUrl = process.env.NEXT_PUBLIC_R2_PUBLIC_URL || '';
+        if (r2BaseUrl && url.startsWith(r2BaseUrl)) {
+            path = url.replace(r2BaseUrl + '/', '');
+        } else if (url.includes('r2.dev/')) {
+            path = url.split('r2.dev/')[1];
+        } else if (url.includes('firebasestorage.googleapis.com')) {
+            // URL lama Firebase — skip, sudah dimigrasi
+            if (isDev) console.warn('Skip delete URL Firebase lama:', url);
+            return;
         }
 
-        const storageRef = ref(storage, path);
-        await deleteObject(storageRef);
+        const res = await fetch('/api/storage/delete', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ path }),
+        });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({ error: res.statusText }));
+            throw new Error(err.error || 'Delete gagal');
+        }
     } catch (error) {
-        // Check if it's a "not found" error and handle gracefully
-        if (error instanceof Error && error.message.includes('object-not-found')) {
-            return; // Don't throw for not found errors
+        if (error instanceof Error && error.message.includes('not found')) {
+            return; // File tidak ada, tidak perlu throw
         }
         throw error;
     }
 }
 
 /**
- * Generate a unique filename with timestamp
- * @param originalName - Original filename
- * @returns Unique filename
+ * Generate nama file unik dengan timestamp
  */
 export function generateUniqueFilename(originalName: string): string {
     const timestamp = Date.now();
@@ -142,11 +111,7 @@ export function generateUniqueFilename(originalName: string): string {
 }
 
 /**
- * Get storage path for content type
- * @param contentType - Type of content
- * @param contentId - ID of the content
- * @param filename - Filename
- * @returns Storage path
+ * Get storage path berdasarkan tipe konten
  */
 export function getStoragePath(
     contentType: 'team-members' | 'achievements' | 'partners' | 'pages' | 'site',
