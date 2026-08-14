@@ -1,7 +1,4 @@
 {
-  "build": {
-    "use": "next"
-  },
   "env": {
     "REACT_APP_API_URL": "https://api.codebustersconnect.com"
   }
