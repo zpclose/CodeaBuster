@@ -8,7 +8,7 @@ import {
     serverTimestamp,
     Firestore,
 } from 'firebase/firestore';
-import { ref, deleteObject, getStorage } from 'firebase/storage';
+import { deleteImage } from '@/lib/storage-utils';
 import type {
     TeamMember,
     TeamMemberFormData,
@@ -53,9 +53,7 @@ export async function updateTeamMember(
             const memberData = memberSnap.data() as TeamMember;
             if (memberData.imageId && memberData.imageId !== data.imageId) {
                 try {
-                    const storage = getStorage();
-                    const oldImageRef = ref(storage, `images/${memberData.imageId}`);
-                    await deleteObject(oldImageRef);
+                    await deleteImage(`images/${memberData.imageId}`);
                 } catch (error) {
                     console.warn('Failed to delete old team member image from storage:', error);
                 }
@@ -83,9 +81,7 @@ export async function deleteTeamMember(
         // Delete image from storage if exists
         if (memberData.imageId) {
             try {
-                const storage = getStorage();
-                const imageRef = ref(storage, `images/${memberData.imageId}`);
-                await deleteObject(imageRef);
+                await deleteImage(`images/${memberData.imageId}`);
             } catch (error) {
                 console.warn('Failed to delete team member image from storage:', error);
             }
@@ -136,9 +132,7 @@ export async function updateAchievement(
             // Delete old thumbnail if changed
             if (data.thumbnailId && achievementData.thumbnailId && achievementData.thumbnailId !== data.thumbnailId) {
                 try {
-                    const storage = getStorage();
-                    const oldImageRef = ref(storage, `images/${achievementData.thumbnailId}`);
-                    await deleteObject(oldImageRef);
+                    await deleteImage(`images/${achievementData.thumbnailId}`);
                 } catch (error) {
                     console.warn('Failed to delete old achievement thumbnail from storage:', error);
                 }
@@ -147,9 +141,7 @@ export async function updateAchievement(
             // Delete old curator image if changed
             if (data.curatorImageId && achievementData.curatorImageId && achievementData.curatorImageId !== data.curatorImageId) {
                 try {
-                    const storage = getStorage();
-                    const oldImageRef = ref(storage, `images/${achievementData.curatorImageId}`);
-                    await deleteObject(oldImageRef);
+                    await deleteImage(`images/${achievementData.curatorImageId}`);
                 } catch (error) {
                     console.warn('Failed to delete old achievement curator image from storage:', error);
                 }
@@ -177,9 +169,7 @@ export async function deleteAchievement(
         // Delete thumbnail from storage if exists
         if (achievementData.thumbnailId) {
             try {
-                const storage = getStorage();
-                const imageRef = ref(storage, `images/${achievementData.thumbnailId}`);
-                await deleteObject(imageRef);
+                await deleteImage(`images/${achievementData.thumbnailId}`);
             } catch (error) {
                 console.warn('Failed to delete achievement thumbnail from storage:', error);
             }
@@ -188,9 +178,7 @@ export async function deleteAchievement(
         // Delete curator image from storage if exists
         if (achievementData.curatorImageId) {
             try {
-                const storage = getStorage();
-                const imageRef = ref(storage, `images/${achievementData.curatorImageId}`);
-                await deleteObject(imageRef);
+                await deleteImage(`images/${achievementData.curatorImageId}`);
             } catch (error) {
                 console.warn('Failed to delete achievement curator image from storage:', error);
             }
@@ -239,9 +227,7 @@ export async function updateNetworkPartner(
             const partnerData = partnerSnap.data() as NetworkPartner;
             if (partnerData.imageId && partnerData.imageId !== data.imageId) {
                 try {
-                    const storage = getStorage();
-                    const oldImageRef = ref(storage, `images/${partnerData.imageId}`);
-                    await deleteObject(oldImageRef);
+                    await deleteImage(`images/${partnerData.imageId}`);
                 } catch (error) {
                     console.warn('Failed to delete old partner image from storage:', error);
                 }
@@ -269,9 +255,7 @@ export async function deleteNetworkPartner(
         // Delete image from storage if exists
         if (partnerData.imageId) {
             try {
-                const storage = getStorage();
-                const imageRef = ref(storage, `images/${partnerData.imageId}`);
-                await deleteObject(imageRef);
+                await deleteImage(`images/${partnerData.imageId}`);
             } catch (error) {
                 console.warn('Failed to delete partner image from storage:', error);
             }

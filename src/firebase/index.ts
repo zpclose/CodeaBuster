@@ -1,10 +1,9 @@
 'use client';
 
-import { firebaseConfig, storageConfig } from '@/firebase/config';
-import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
-import { getAuth, connectAuthEmulator } from 'firebase/auth';
-import { getFirestore, connectFirestoreEmulator, enableIndexedDbPersistence, initializeFirestore, CACHE_SIZE_UNLIMITED, Firestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+import { firebaseConfig } from '@/firebase/config';
+import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore, enableIndexedDbPersistence, initializeFirestore, CACHE_SIZE_UNLIMITED, Firestore } from 'firebase/firestore';
 import { setLogLevel, LogLevel } from '@firebase/logger';
 
 setLogLevel(LogLevel.ERROR);
@@ -14,7 +13,7 @@ setLogLevel(LogLevel.ERROR);
  */
 export function initializeAdminFirebase() {
   if (!firebaseConfig) {
-    return { firebaseApp: null, auth: null, firestore: null, storage: null };
+    return { firebaseApp: null, auth: null, firestore: null };
   }
 
   let firebaseApp: FirebaseApp;
@@ -38,12 +37,11 @@ export function initializeFirebase() {
     if (process.env.NODE_ENV === 'development') {
       console.warn('Firebase not configured - services will not be available');
     }
-    return { firebaseApp: null, auth: null, firestore: null, storage: null };
+    return { firebaseApp: null, auth: null, firestore: null };
   }
 
   let firebaseApp: FirebaseApp;
 
-  // Check if the default app already exists to avoid duplicate-app errors
   const existingDefault = getApps().find(app => app.name === '[DEFAULT]');
   if (existingDefault) {
     firebaseApp = existingDefault;
@@ -58,40 +56,25 @@ let _firestoreInstance: Firestore | null = null;
 let _currentAppName: string | null = null;
 
 export function getSdks(firebaseApp: FirebaseApp) {
-  // Initialize storage app separately for the storage project
-  let storageApp = null;
-
-  if (storageConfig && !getApps().some(app => app.name === 'storage')) {
-    storageApp = initializeApp(storageConfig, 'storage');
-  } else if (storageConfig) {
-    storageApp = getApp('storage');
-  }
-
-  const storage = storageApp ? getStorage(storageApp) : null;
-
-  // Reuse existing Firestore instance if already initialized with persistence for this app
+  // Reuse existing Firestore instance if already initialized for this app
   if (_firestoreInstance && _currentAppName === firebaseApp.name) {
     return {
       firebaseApp,
       auth: getAuth(firebaseApp),
       firestore: _firestoreInstance,
-      storage
     };
   }
 
-  // Reset instance if switching apps
   _firestoreInstance = null;
   _currentAppName = firebaseApp.name;
 
   let firestore: Firestore;
   
   try {
-    // Try to enable persistence BEFORE any other calls
     firestore = initializeFirestore(firebaseApp, {
       cacheSizeBytes: CACHE_SIZE_UNLIMITED
     });
 
-    // Enable persistence in background
     enableIndexedDbPersistence(firestore).catch((err) => {
       if (err.code === 'failed-precondition') {
         console.warn('[Firestore] Persistence failed - multiple tabs open');
@@ -100,7 +83,6 @@ export function getSdks(firebaseApp: FirebaseApp) {
       }
     });
   } catch (err: any) {
-    // If persistence already enabled, just use regular getFirestore
     if (err.message?.includes('already been started')) {
       console.warn('[Firestore] Using existing instance (persistence already enabled)');
       firestore = getFirestore(firebaseApp);
@@ -115,23 +97,7 @@ export function getSdks(firebaseApp: FirebaseApp) {
     firebaseApp,
     auth: getAuth(firebaseApp),
     firestore,
-    storage
   };
-}
-
-// Export storage app instance untuk direct access
-let _storageAppCache: FirebaseApp | null = null;
-export function getStorageApp(): FirebaseApp | null {
-  if (!storageConfig) return null;
-
-  if (!_storageAppCache) {
-    if (!getApps().some(app => app.name === 'storage')) {
-      _storageAppCache = initializeApp(storageConfig, 'storage');
-    } else {
-      _storageAppCache = getApp('storage');
-    }
-  }
-  return _storageAppCache;
 }
 
 export * from './provider';

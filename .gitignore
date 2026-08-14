@@ -44,6 +44,12 @@ next-env.d.ts
 firebase-debug.log
 firestore-debug.log
 .env*.local
+firebase-service-account.json
+firebase-storage-service-account.json
+scripts/migrate-result.json
+
+# env files dengan credentials
+.env.production
 
 # firebase generated
 .firebase/
