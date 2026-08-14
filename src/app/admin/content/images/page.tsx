@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useFirestore, getStorageApp } from '@/firebase';
-import { collection, getDocs, doc, setDoc, deleteDoc, query, where, serverTimestamp } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL, deleteObject, getStorage } from 'firebase/storage';
+import { useFirestore } from '@/firebase';
+import { collection, getDocs, doc, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { uploadImage, deleteImage, generateUniqueFilename } from '@/lib/storage-utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -95,30 +95,19 @@ export default function ImagesManagementPage() {
         if (!uploadTarget || !imageFile || !db) return;
         setIsUploading(true);
         try {
-            const storageApp = getStorageApp();
-            const storage = getStorage(storageApp ?? undefined);
-            
-            // Check if there's an existing override to delete old image
+            // Delete old image from R2 if exists
             const existingOverride = overrides[uploadTarget.slot.slot];
             if (existingOverride?.imageUrl) {
                 try {
-                    // Extract path from URL to delete
-                    const urlParts = existingOverride.imageUrl.split('/o/');
-                    if (urlParts[1]) {
-                        const encodedPath = urlParts[1].split('?')[0];
-                        const decodedPath = decodeURIComponent(encodedPath);
-                        const oldImageRef = ref(storage, decodedPath);
-                        await deleteObject(oldImageRef);
-                    }
+                    await deleteImage(existingOverride.imageUrl);
                 } catch (deleteError) {
                     console.warn('Failed to delete old image from storage:', deleteError);
                 }
             }
-            
-            const path = `page-images/${uploadTarget.category.id}/${uploadTarget.slot.slot}-${Date.now()}`;
-            const storageRef = ref(storage, path);
-            await uploadBytes(storageRef, imageFile);
-            const downloadUrl = await getDownloadURL(storageRef);
+
+            const filename = generateUniqueFilename(imageFile.name);
+            const path = `page-images/${uploadTarget.category.id}/${uploadTarget.slot.slot}-${filename}`;
+            const downloadUrl = await uploadImage(imageFile, path);
 
             await setDoc(doc(db, 'page-images', uploadTarget.slot.slot), {
                 slot: uploadTarget.slot.slot,
@@ -162,26 +151,16 @@ export default function ImagesManagementPage() {
         if (!deleteTarget || !db) return;
         setIsDeleting(true);
         try {
-            const storageApp = getStorageApp();
-            const storage = getStorage(storageApp ?? undefined);
-            
-            // Get the current override to delete the image from storage
+            // Delete image from R2
             const existingOverride = overrides[deleteTarget.slot.slot];
             if (existingOverride?.imageUrl) {
                 try {
-                    // Extract path from URL to delete
-                    const urlParts = existingOverride.imageUrl.split('/o/');
-                    if (urlParts[1]) {
-                        const encodedPath = urlParts[1].split('?')[0];
-                        const decodedPath = decodeURIComponent(encodedPath);
-                        const imageRef = ref(storage, decodedPath);
-                        await deleteObject(imageRef);
-                    }
+                    await deleteImage(existingOverride.imageUrl);
                 } catch (deleteError) {
                     console.warn('Failed to delete image from storage:', deleteError);
                 }
             }
-            
+
             await deleteDoc(doc(db, 'page-images', deleteTarget.slot.slot));
             toast({ title: 'Dikembalikan', description: `"${deleteTarget.slot.label}" kembali ke gambar default.` });
             setDeleteDialogOpen(false);
