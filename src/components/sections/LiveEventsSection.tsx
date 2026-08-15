@@ -57,10 +57,10 @@ function EventCard({ event, index }: { event: LiveEvent; index: number }) {
             transition={{ delay: index * 0.08, duration: 0.45 }}
         >
             <Card className="overflow-hidden border border-border/60 bg-card shadow-none hover:border-primary/30 hover:shadow-md transition-all duration-300 group h-full">
-                {/* Gambar — hanya render kalau ada, tinggi natural */}
+                {/* Gambar — hanya render kalau ada, aspect ratio 16:9 */}
                 {hasImage && (
                     <div className="relative w-full overflow-hidden bg-muted"
-                        style={{ aspectRatio: 'auto', minHeight: '160px', maxHeight: '320px' }}
+                        style={{ aspectRatio: '16 / 9' }}
                     >
                         <ImageWithSkeleton
                             src={event.imageUrl}
