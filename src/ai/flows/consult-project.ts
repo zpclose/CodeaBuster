@@ -5,7 +5,7 @@ import { z } from 'genkit';
 import { ProjectIdea } from '@/app/(main)/idea-generator/components/ProjectCard';
 
 const client = new Groq({
-    apiKey: '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',
+    apiKey: process.env.GROQ_API_KEY,
 });
 
 const ConsultProjectInputSchema = z.object({
