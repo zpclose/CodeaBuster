@@ -69,24 +69,16 @@ function EventCard({ event, index }: { event: LiveEvent; index: number }) {
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                             skeletonClassName="rounded-none"
                         />
-                        {/* Status badge overlay */}
-                        <div className="absolute top-3 left-3">
-                            <span className={`inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border backdrop-blur-sm bg-background/80 ${status.className}`}>
-                                <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} />
-                                {status.label}
-                            </span>
-                        </div>
+                        {/* Status badge overlay — REMOVED, moved to card content */}
                     </div>
                 )}
 
                 <CardContent className={`p-5 space-y-3 ${!hasImage ? 'pt-5' : ''}`}>
-                    {/* Status badge — kalau tidak ada gambar */}
-                    {!hasImage && (
-                        <span className={`inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${status.className}`}>
-                            <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} />
-                            {status.label}
-                        </span>
-                    )}
+                    {/* Status badge — now at top of card content */}
+                    <span className={`inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${status.className}`}>
+                        <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} />
+                        {status.label}
+                    </span>
 
                     {/* Kampus */}
                     <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-medium uppercase tracking-widest">
@@ -184,10 +176,10 @@ export function LiveEventsSection() {
                             </span>
                         </div>
                         <h2 className="font-headline text-4xl md:text-5xl font-bold leading-none tracking-tighter">
-                            Kegiatan <span className="text-primary italic">Berlangsung</span>
+                            Live <span className="text-primary italic">Campus Events</span>
                         </h2>
                         <p className="mt-3 text-muted-foreground max-w-xl text-sm md:text-base">
-                            Update langsung kegiatan, kompetisi, dan perwakilan komunitas Codebusters di berbagai kampus.
+                            Real-time updates on competitions, events, and community initiatives across Codebusters campuses.
                         </p>
                     </div>
 
