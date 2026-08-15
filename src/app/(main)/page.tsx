@@ -21,6 +21,7 @@ import { useTickerItems } from '@/hooks/useTickerItems';
 import { useTeamMembers } from '@/hooks/useTeamMembers';
 import { useAchievements } from '@/hooks/useAchievements';
 import { useDynamicPageImages } from '@/hooks/useDynamicPageImages';
+import { LiveEventsSection } from '@/components/sections/LiveEventsSection';
 
 const features = [
   {
@@ -448,6 +449,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* LIVE CAMPUS EVENTS SECTION */}
+      <LiveEventsSection />
 
       {/* SHOWCASE OF EXCELLENCE SECTION */}
       <section className="py-24 md:py-32 bg-background overflow-hidden">

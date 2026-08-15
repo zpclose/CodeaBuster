@@ -225,3 +225,35 @@ export type AchievementFormData = Omit<Achievement, 'id' | 'createdAt' | 'update
 export type NetworkPartnerFormData = Omit<NetworkPartner, 'id' | 'createdAt' | 'updatedAt'>;
 export type PageImageFormData = Omit<PageImage, 'id' | 'createdAt' | 'updatedAt'>;
 export type CouncilDirectiveFormData = Omit<CouncilDirective, 'id' | 'createdAt' | 'updatedAt'>;
+
+// ============================================
+// LIVE CAMPUS EVENTS (Kegiatan Berlangsung)
+// ============================================
+
+export type LiveEventStatus = 'Akan Berlangsung' | 'Sedang Berlangsung' | 'Selesai';
+
+export interface LiveEventTeamMember {
+    name: string;
+}
+
+export interface LiveEvent {
+    id: string;
+    title: string;
+    description: string;
+    eventDate: string;       // YYYY-MM-DD
+    eventTime: string;       // HH:MM
+    location: string;        // Nama lokasi spesifik
+    university: string;      // "Telkom University" | "Universitas Mercu Buana" | "Keduanya"
+    teamName: string;
+    teamMembers: LiveEventTeamMember[];
+    status: LiveEventStatus;
+    imageUrl: string;
+    imageId?: string;
+    isVisible: boolean;      // kontrol tampil/sembunyi di homepage
+    displayLimit: number;    // max event ditampilkan di homepage (default 3)
+    order: number;
+    createdAt: Timestamp | FieldValue;
+    updatedAt: Timestamp | FieldValue;
+}
+
+export type LiveEventFormData = Omit<LiveEvent, 'id' | 'createdAt' | 'updatedAt'>;

@@ -418,3 +418,79 @@ export async function toggleProjectFeatured(
 ): Promise<void> {
     await updateProject(firestore, id, { isFeatured });
 }
+
+// ============================================
+// LIVE EVENTS CRUD
+// ============================================
+
+import type { LiveEvent, LiveEventFormData } from '@/types/content';
+
+export async function createLiveEvent(
+    firestore: Firestore,
+    data: LiveEventFormData
+): Promise<string> {
+    const eventsCollection = collection(firestore, 'live-events');
+    const docRef = await addDoc(eventsCollection, {
+        ...data,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+    });
+    return docRef.id;
+}
+
+export async function updateLiveEvent(
+    firestore: Firestore,
+    id: string,
+    data: Partial<LiveEventFormData>
+): Promise<void> {
+    const eventRef = doc(firestore, 'live-events', id);
+
+    // Hapus gambar lama dari R2 kalau imageId berubah
+    if (data.imageId) {
+        const snap = await getDoc(eventRef);
+        if (snap.exists()) {
+            const old = snap.data() as LiveEvent;
+            if (old.imageId && old.imageId !== data.imageId) {
+                try {
+                    await deleteImage(`images/${old.imageId}`);
+                } catch (err) {
+                    console.warn('Failed to delete old live event image:', err);
+                }
+            }
+        }
+    }
+
+    await updateDoc(eventRef, {
+        ...data,
+        updatedAt: serverTimestamp(),
+    });
+}
+
+export async function deleteLiveEvent(
+    firestore: Firestore,
+    id: string
+): Promise<void> {
+    const eventRef = doc(firestore, 'live-events', id);
+
+    const snap = await getDoc(eventRef);
+    if (snap.exists()) {
+        const data = snap.data() as LiveEvent;
+        if (data.imageId) {
+            try {
+                await deleteImage(`images/${data.imageId}`);
+            } catch (err) {
+                console.warn('Failed to delete live event image:', err);
+            }
+        }
+    }
+
+    await deleteDoc(eventRef);
+}
+
+export async function toggleLiveEventVisible(
+    firestore: Firestore,
+    id: string,
+    isVisible: boolean
+): Promise<void> {
+    await updateLiveEvent(firestore, id, { isVisible });
+}

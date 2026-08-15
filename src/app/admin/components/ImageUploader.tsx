@@ -9,7 +9,7 @@ import { uploadImage, deleteImage, generateUniqueFilename, getStoragePath, Uploa
 import { cn } from '@/lib/utils';
 
 interface ImageUploaderProps {
-    contentType: 'team-members' | 'achievements' | 'partners' | 'pages';
+    contentType: 'team-members' | 'achievements' | 'partners' | 'pages' | 'live-events';
     contentId: string;
     currentImageUrl?: string;
     onUploadComplete: (url: string) => void;

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, Images, FileText, Settings, Shield, Inbox, LogOut, ChevronDown, Users, Trophy, Network, ImageIcon, User, ScrollText, UserCog, ChevronLeft, ChevronRight, Sun, Moon, Palette, Briefcase } from 'lucide-react';
+import { LayoutDashboard, Images, FileText, Settings, Shield, Inbox, LogOut, ChevronDown, Users, Trophy, Network, ImageIcon, User, ScrollText, UserCog, ChevronLeft, ChevronRight, Sun, Moon, Palette, Briefcase, CalendarDays } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggleCustom } from './ThemeToggleCustom';
 import { useState, useEffect } from 'react';
@@ -26,6 +26,7 @@ const contentSubmenu = [
   { href: '/admin/content/achievements', label: 'Achievements', icon: Trophy },
   { href: '/admin/content/partners', label: 'Network Partners', icon: Network },
   { href: '/admin/content/images', label: 'Page Images', icon: ImageIcon },
+  { href: '/admin/content/live-events', label: 'Live Campus Events', icon: CalendarDays },
 ];
 
 interface AdminSidebarProps {

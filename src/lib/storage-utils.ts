@@ -114,7 +114,7 @@ export function generateUniqueFilename(originalName: string): string {
  * Get storage path berdasarkan tipe konten
  */
 export function getStoragePath(
-    contentType: 'team-members' | 'achievements' | 'partners' | 'pages' | 'site',
+    contentType: 'team-members' | 'achievements' | 'partners' | 'pages' | 'site' | 'live-events',
     contentId: string,
     filename: string
 ): string {
