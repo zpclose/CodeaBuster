@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import {
     collection,
     query,
-    where,
     orderBy,
     onSnapshot,
     Unsubscribe,
-    QueryConstraint,
 } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import type { LiveEvent, LiveEventStatus } from '@/types/content';
@@ -33,20 +31,8 @@ export function useLiveEvents(options: UseLiveEventsOptions = {}) {
         setIsLoading(true);
         setError(null);
 
-        const constraints: QueryConstraint[] = [];
-
-        if (options.visibleOnly) {
-            constraints.push(where('isVisible', '==', true));
-        }
-
-        if (options.status) {
-            constraints.push(where('status', '==', options.status));
-        }
-
-        // Single orderBy (no composite index needed)
-        constraints.push(orderBy('eventDate', 'desc'));
-
-        const q = query(collection(firestore, 'live-events'), ...constraints);
+        // Simple query without composite indexes — filter client-side instead
+        const q = query(collection(firestore, 'live-events'), orderBy('eventDate', 'desc'));
 
         const unsubscribe: Unsubscribe = onSnapshot(
             q,
@@ -55,6 +41,14 @@ export function useLiveEvents(options: UseLiveEventsOptions = {}) {
                     id: doc.id,
                     ...doc.data(),
                 } as LiveEvent));
+
+                // Filter client-side
+                if (options.visibleOnly) {
+                    list = list.filter(e => e.isVisible === true);
+                }
+                if (options.status) {
+                    list = list.filter(e => e.status === options.status);
+                }
 
                 // Apply displayLimit dari event pertama (setting global)
                 if (options.visibleOnly && list.length > 0) {
