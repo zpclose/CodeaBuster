@@ -141,6 +141,7 @@ export async function middleware(request: NextRequest) {
     '/sifonix-portfolio',
     '/icsit-portfolio',
     '/mlbb-portfolio',
+    '/api/storage', // Allow storage uploads (authenticated via session cookie)
   ];
   const isPublicPathPrefix = publicPathPrefixes.some((prefix) => pathname.startsWith(prefix));
 
