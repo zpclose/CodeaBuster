@@ -45,9 +45,9 @@ const features = [
 
 // Static fallback ticker texts
 const fallbackTickerTexts = [
-  "Maya S. Mengirim Pull Request → Proyek Fintech Protocol. (+12 PRs Last Hour)",
+  "Tim Los Tres Disenadores (UMB) sedang mengikuti lomba di IPB. (AKTIF)",
   "Mentor Risa K. Selesai code review → Proyek UI/UX Accessibility.",
-  "Tim Alpha Meminta bantuan → Komponen Database Scalability.",
+  "Tim The Last Three Days (UMB) sedang mengikuti lomba Internasional → UNHAS (AKTIF).",
   "Kevin L. Mengirim ide solusi → Diskusi Global Trading Platform.",
   "Sifonix v2.0 Telah di-merge ke Main Branch.",
   "Tim S.NGR Memenangkan International Award di ICSIT 2025.",
