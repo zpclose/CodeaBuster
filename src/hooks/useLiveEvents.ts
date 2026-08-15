@@ -43,7 +43,7 @@ export function useLiveEvents(options: UseLiveEventsOptions = {}) {
             constraints.push(where('status', '==', options.status));
         }
 
-        constraints.push(orderBy('order', 'asc'));
+        // Single orderBy (no composite index needed)
         constraints.push(orderBy('eventDate', 'desc'));
 
         const q = query(collection(firestore, 'live-events'), ...constraints);
