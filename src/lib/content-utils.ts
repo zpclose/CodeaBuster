@@ -20,6 +20,9 @@ import type {
     PageImageFormData,
     Project,
     ProjectFormData,
+    CouncilDirectiveFormData,
+    LiveEvent,
+    LiveEventFormData,
 } from '@/types/content';
 
 // ============================================
@@ -323,8 +326,6 @@ export async function togglePageImageActive(
 // COUNCIL DIRECTIVES CRUD
 // ============================================
 
-import type { CouncilDirectiveFormData } from '@/types/content';
-
 export async function createCouncilDirective(
     firestore: Firestore,
     data: CouncilDirectiveFormData
@@ -422,8 +423,6 @@ export async function toggleProjectFeatured(
 // ============================================
 // LIVE EVENTS CRUD
 // ============================================
-
-import type { LiveEvent, LiveEventFormData } from '@/types/content';
 
 export async function createLiveEvent(
     firestore: Firestore,

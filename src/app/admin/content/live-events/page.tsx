@@ -363,7 +363,12 @@ export default function LiveEventsAdminPage() {
                                 contentType="live-events"
                                 contentId={editingEvent?.id || 'new'}
                                 currentImageUrl={formData.imageUrl}
-                                onUploadComplete={(url) => setFormData(prev => ({ ...prev, imageUrl: url }))}
+                                onUploadComplete={(url) => setFormData(prev => ({
+                                    ...prev,
+                                    imageUrl: url,
+                                    // Gunakan URL path sebagai imageId untuk tracking cleanup
+                                    imageId: url.split('/').slice(-2).join('/'),
+                                }))}
                                 onDelete={() => setFormData(prev => ({ ...prev, imageUrl: '', imageId: '' }))}
                                 maxSizeMB={10}
                             />
